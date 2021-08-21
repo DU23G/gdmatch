@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta neme="viewport" content="width=device-width, initial-scale=1">
+    <title>GD match</title>
+    <link rel="stylesheet" href="../../assets/stylesheets/html5reset-1.6.1.css">
+    <link rel="stylesheet" href="../../assets/stylesheets/base.css">
+
+</head>
+
+<body id="loginform">
+    <header id="top">
+        <div class="header_content wrapper">
+            <h1><img class="header_logo" src="https://via.placeholder.com/300x50" alt="GD match"></h1>
+            <nav>
+                <ul>
+                    <li>ようこそ、GD matchへ</li>
+                    <li><a><%= link_to "投稿ページへ", :controller => "tweets", :action => "index" %></a></li>
+                    <li class="current"><a href="index.html">ホーム</a></li>
+                    <li><%= link_to "ログイン", tweets_path %></li>
+                    <li><%= link_to "新規登録", new_user_registration_path %></li>
+                </ul>
+            </nav>
+        </div>
+        <div id="main_image">
+
+        </div>
+    </header>
+
+    <div class="contents wrapper">
+        <aside id="sidebar">
+            <ul>
+                <li><img src="https://via.placeholder.com/500x500"></li>
+            </ul>
+        </aside>
+        <main id="main_content">
+            <h2>グループディスカッション（GD）<br>
+                今すぐに練習相手を探そう。</h2>
+            <h3>GD matchをはじめよう</h3> 
+            <h4>大学のメールアドレスで<%= link_to "新規登録", new_user_registration_path %></h4>
+            <h5>アカウントをお持ちの場合は<%= link_to "ログイン", tweets_path %></h5>
+        </main>
+    </div>
+
+    <footer>
+        <ul>
+            <li><a href="">ホーム</a></li>
+            <li><a href="">サイト情報</a></li>
+            <li><a href="">お問い合わせ</a></li>
+        </ul>
+        <small>&copy; Copyright 2021 GD match, All Rights Reserved.</small>
+    </footer>
+</body>
+</html>

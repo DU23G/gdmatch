@@ -1,0 +1,36 @@
+<h1>GD match</h1>
+<h2>参加者を募集する</h2>
+<%= form_for @tweet do |f| %>
+  <div class="field">
+    <%= f.label :thema %>
+    <%= f.text_field :thema, :size => 140 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :meeting %>
+    <%= f.text_field :meeting, :size => 140 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :comment %>
+    <%= f.text_field :comment, :size => 140 %>
+  </div>
+  <%= f.submit "募集する" %>
+
+<h2>参加者になる</h2>
+<div class="tweets-container">
+  <% @tweets.each do |t| %>
+    <div class="tweet">
+      <br>
+      <h4><%= t.thema %></h4><br>
+      <%= t.meeting %><br>
+      <%= t.comment %><br>
+      <%= t.created_at %>
+    </div>
+
+  <% end %>
+</div>
+
+<%= button_to 'ログアウト', destroy_user_session_path, method: :delete %>
+
+<% end %>
