@@ -1,22 +1,26 @@
 <h1>GD match</h1>
 <h2>参加者を募集する</h2>
 <%= form_for @tweet do |f| %>
-  <div class="field">
-    <%= f.label :thema %>
-    <%= f.text_field :thema, :size => 140 %>
-  </div>
+<div class="field">
+  <%= f.label :thema %>
+  <%= f.text_field :thema, :size => 140 %>
+</div>
 
-  <div class="field">
-    <%= f.label :meeting %>
-    <%= f.text_field :meeting, :size => 140 %>
-  </div>
+<div class="field">
+  <%= f.label :meeting %>
+  <%= f.text_field :meeting, :size => 140 %>
+</div>
 
-  <div class="field">
+<div class="field">
+  <span class="field__label">
     <%= f.label :comment %>
+  </span>
+  <span class="field__comment field__comment--red">
     <%= f.text_field :comment, :size => 140 %>
-  </div>
-  <br>
-  <%= f.submit "募集する" %>
+  </span>
+</div>
+<br>
+<%= f.submit "募集する" %>
 
 <% end %>
 
@@ -24,8 +28,8 @@
 
 <h3>募集枠を検索</h3>
 <%= form_tag({controller:"tweets",action:"index"}, method: :get) do %>
-   <%= text_field_tag :search %>
-   <%= submit_tag '検索する'  %>
+<%= text_field_tag :search %>
+<%= submit_tag '検索する'  %>
 <% end %>
 
 <br>
@@ -33,33 +37,33 @@
 
 <div class="tweets-container">
   <% @tweets.each do |t| %>
-    <div class="tweet">
-      <br>
-      <h4><%= t.thema %></h4><br>
-      <%= t.meeting %><br>
-      <%= t.comment %><br>
-      <%= t.user.email %><br>
+  <div class="tweet">
+    <br>
+    <h4><%= t.thema %></h4><br>
+    <%= t.meeting %><br>
+    <%= t.comment %><br>
+    <%= t.user.email %><br>
 
-      <% if user_signed_in? %>
-          <% if current_user.already_liked?(t) %>
-            <%= link_to tweet_like_path(id: t.id, tweet_id: t.id), method: :delete do %>
-              <i class="fas fa-heart"></i><%= t.likes.count %>
-            <% end %>
-          <% else %>
-            <%= link_to tweet_likes_path(id: t.id, tweet_id: t.id), method: :post do %>
-              <i class="far fa-heart"></i><%= t.likes.count %>
-            <% end %>
-          <% end %>
-      <% else %>
-        <i class="far fa-heart"></i><%= t.likes.count %>
-      <% end %><br>
+    <% if user_signed_in? %>
+    <% if current_user.already_liked?(t) %>
+    <%= link_to tweet_like_path(id: t.id, tweet_id: t.id), method: :delete do %>
+    <i class="fas fa-heart"></i><%= t.likes.count %>
+    <% end %>
+    <% else %>
+    <%= link_to tweet_likes_path(id: t.id, tweet_id: t.id), method: :post do %>
+    <i class="far fa-heart"></i><%= t.likes.count %>
+    <% end %>
+    <% end %>
+    <% else %>
+    <i class="far fa-heart"></i><%= t.likes.count %>
+    <% end %><br>
 
-      <%= t.created_at %>
+    <%= t.created_at %>
 
-      <%= button_to "確認", tweet_path(t.id) %>
-      <%= link_to "編集", edit_tweet_path(t.id) %> <%= link_to "削除", tweet_path(t.id), method: :delete %>
+    <%= button_to "確認", tweet_path(t.id) %>
+    <%= link_to "編集", edit_tweet_path(t.id) %> <%= link_to "削除", tweet_path(t.id), method: :delete %>
 
-    </div>
+  </div>
 
   <% end %>
 </div>
