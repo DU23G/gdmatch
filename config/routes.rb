@@ -5,7 +5,22 @@ Rails.application.routes.draw do
   get "toppages/index" => "toppages#index"
   root "toppages#index"
 
-  get 'tweets' => 'tweets#index'
-  post 'tweets' => 'tweets#create'
+  # get 'tweets' => 'tweets#index'
+  # post 'tweets' => 'tweets#create'
+
+  # get 'tweets/:id' => 'tweets#show',as: 'tweet'
+  # patch 'tweets/:id' => 'tweets#update'
+  # delete 'tweets/:id' => 'tweets#destroy'
+  # get 'tweets/:id/edit' => 'tweets#edit', as:'edit_tweet'
+
+  # 以下、書かれていなかったルーティング
+  # get    'tweets/new'      => 'tweets#new'
+  # put    'tweets/:id'      => 'tweets#update'
+   post "tweets/:id" => 'tweets#show'
+  
+
+  resources :tweets do
+    resources :likes, only: [:create, :destroy,]
+  end
 
 end

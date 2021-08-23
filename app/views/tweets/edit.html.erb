@@ -1,0 +1,9 @@
+<%= form_for @tweet do |f| %>
+    <%= f.label :thema %>
+    <%= f.text_field :thema, :size => 140 %> 
+    <%= f.label :meeting %>
+    <%= f.text_field :meeting, :size => 140 %> 
+    <%= f.label :comment %>
+    <%= f.text_field :comment, :size => 140 %><br>
+    <%= f.submit "編集完了" %>
+  <% end %>
