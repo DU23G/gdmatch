@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   devise_for :users
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
+  resources :users, only: [:show]
+
   get "toppages/index" => "toppages#index"
   root "toppages#index"
 
@@ -17,10 +19,11 @@ Rails.application.routes.draw do
   # get    'tweets/new'      => 'tweets#new'
   # put    'tweets/:id'      => 'tweets#update'
    post "tweets/:id" => 'tweets#show'
-  
 
   resources :tweets do
     resources :likes, only: [:create, :destroy,]
-  end
+    resources :remarks, only: [:create]
+
+end
 
 end

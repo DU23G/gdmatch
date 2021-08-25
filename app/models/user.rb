@@ -8,6 +8,11 @@ class User < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :liked_tweets, through: :likes, source: :tweet
 
+  has_many :remarks, dependent: :destroy
+
+  validates :name, presence: true
+  validates :profile, length: { maximum: 200 }
+
   def already_liked?(tweet)
     self.likes.exists?(tweet_id: tweet.id)
   end

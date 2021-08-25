@@ -1,5 +1,6 @@
 <h1>GD match</h1>
-<h2>参加者を募集する</h2>
+<% if user_signed_in? %> <%= link_to "マイページへ", user_path(current_user.id) %>　 <% end %> <h2>
+  参加者を募集する</h2>
 <%= form_for @tweet do |f| %>
 <div class="field">
   <%= f.label :thema %>
@@ -37,6 +38,7 @@
 
 <div class="tweets-container">
   <% @tweets.each do |t| %>
+  <a href="/users/<%= t.user.id %>"><%= t.user.name %></a>
   <div class="tweet">
     <br>
     <h4><%= t.thema %></h4><br>
@@ -61,8 +63,9 @@
     <%= t.created_at %>
 
     <%= button_to "確認", tweet_path(t.id) %>
+    <% if user_signed_in? && current_user.id == t.user_id %>
     <%= link_to "編集", edit_tweet_path(t.id) %> <%= link_to "削除", tweet_path(t.id), method: :delete %>
-
+    <% end %>
   </div>
 
   <% end %>
@@ -71,5 +74,3 @@
 <%= paginate @tweets %>
 <br>
 <%= button_to 'ログアウト', destroy_user_session_path, method: :delete %>
-
-# web15/20, game8/12
