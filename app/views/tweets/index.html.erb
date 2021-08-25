@@ -38,13 +38,12 @@
 
 <div class="tweets-container">
   <% @tweets.each do |t| %>
-  <a href="/users/<%= t.user.id %>"><%= t.user.name %></a>
   <div class="tweet">
     <br>
     <h4><%= t.thema %></h4><br>
     <%= t.meeting %><br>
     <%= t.comment %><br>
-    <%= t.user.email %><br>
+    <a href="/users/<%= t.user.id %>"><%= t.user.name %></a><br>
 
     <% if user_signed_in? %>
     <% if current_user.already_liked?(t) %>

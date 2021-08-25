@@ -1,24 +1,27 @@
-<h1>users#show</h1>
+<h1>ユーザー情報</h1>
 <p>名前 : <%= @user.name %></p>
 <p>メールアドレス : <%= @user.email %></p>
 <p>プロフィール : <%= @user.profile %></p>
 
 <% if current_user.id == @user.id %>
 <%= link_to "編集する", edit_user_registration_path %>
-<% end %>
+<% end %><br>
 
-<h2>ユーザーの投稿一覧</h2>
-<% @user.tweets.each do |t| %>
-<%= t.user.name %>
-<%= t.thema %><br>
-<%= t.meeting %><br>
-<%= t.comment %><br>
-<% end %>
+<div>
+    <h2>ユーザーの投稿一覧</h2><br>
+    <% @user.tweets.each do |t| %>
 
-<h2>ユーザーがいいねした投稿一覧</h2>
-<% @user.liked_tweets.each do |t| %>
-<%= t.user.name %><br>
-<%= t.thema %><br>
-<% end %>
+    <h3><%= t.thema %></h3>
+    <%= t.meeting %><br>
+    <%= t.comment %><br>
+    <%= t.user.name %><br>
+    <br>
+    <% end %><br>
 
-<%= link_to "Tweet一覧に戻る", tweets_path %>
+    <h2>ユーザーがいいねした投稿一覧</h2>
+    <% @user.liked_tweets.each do |t| %>
+    <%= t.user.name %><br>
+    <h3><%= t.thema %></h3><br>
+    <% end %>
+
+    <%= link_to "Tweet一覧に戻る", tweets_path %>
