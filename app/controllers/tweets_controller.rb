@@ -55,7 +55,7 @@ class TweetsController < ApplicationController
 
     private
       def tweet_params
-        params.require(:tweet).permit(:thema, :meeting, :comment, :meetingtype)
+        params.require(:tweet).permit(:thema, :meeting, :comment, :meetingtype, :hosttime, :thematype, :limittime, :level, :number)
     end
 
 end
