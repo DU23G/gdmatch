@@ -1,10 +1,15 @@
 <h1>GD match</h1>
-<% if user_signed_in? %> <%= link_to "マイページへ", user_path(current_user.id) %>　 <% end %> <h2>
-  参加者を募集する</h2>
+<% if user_signed_in? %> <%= link_to "マイページへ", user_path(current_user.id) %>　 <% end %>
+<h2>参加者を募集する</h2>
 <%= form_for @tweet do |f| %>
 <div class="field">
   <%= f.label :thema %>
   <%= f.text_field :thema, :size => 140 %>
+</div>
+
+<div class="field">
+  <%= f.label :meetingtype %>
+  <%= f.select :meetingtype, [["Zoom", "Zoom"], ["Teams", "Teams"], ["Webex", "Webex"], ["GoogleMeet", "GoogleMeet"], ["Skype", "Skype"], ["Calling", "Calling"], ["Discord", "Discord"]], include_blank: "選択して下さい" %>
 </div>
 
 <div class="field">
@@ -20,6 +25,16 @@
     <%= f.text_field :comment, :size => 140 %>
   </span>
 </div>
+
+<%# https://www.sejuku.net/blog/27132 %>
+<div class="field">
+  <%= f.label :year %>
+  <% %w(23卒 24卒 25卒 26卒).each.with_index do |year,i| %>
+  <%= check_box_tag 'tweet[years][]', year,false,id:"tweet_years_#{i}"%>
+  <%= year %>
+  <% end %>
+</div>
+
 <br>
 <%= f.submit "募集する" %>
 
@@ -41,6 +56,7 @@
   <div class="tweet">
     <br>
     <h4><%= t.thema %></h4><br>
+    <%= t.meetingtype%><br>
     <%= t.meeting %><br>
     <%= t.comment %><br>
     <a href="/users/<%= t.user.id %>"><%= t.user.name %></a><br>
