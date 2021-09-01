@@ -12,6 +12,9 @@
   コメント：<%= @tweet.comment %><br>
   投稿日時：<%= @tweet.created_at %><br>
 
+  <br>
+  <%= link_to "編集する", edit_tweet_path(@tweet.id) %><br>
+
   <% if user_signed_in? %>
   <% if current_user.already_liked?(@tweet) %>
   <%= link_to tweet_like_path(@tweet), method: :delete do %>
@@ -25,11 +28,13 @@
   <% else %>
   <i class="far fa-heart"></i><%= @tweet.likes.count %>
   <% end %>
-</div><br>
+</div>
+<a href="/users/<%= @tweet.user.id %>"><%= @tweet.user.name %></a><br>
 
-<h2>LIKEしたユーザー</h2>
+
+<h2>この投稿にいいねしたユーザー</h2>
 <% @tweet.liked_users.each do |user| %>
-<li><%= user.email %></li><br>
+<li><%= user.name %></li><br>
 <% end %>
 
 <div class="remark-wrapper">
@@ -67,8 +72,6 @@
 
 <%= flash[:alert] %>
 
-<br>
-<%= link_to "編集する", edit_tweet_path(@tweet.id) %>
 <br>
 <br>
 <%= link_to "Tweet一覧に戻る", tweets_path %>

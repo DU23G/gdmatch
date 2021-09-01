@@ -11,17 +11,20 @@
     <h2>ユーザーの投稿一覧</h2><br>
     <% @user.tweets.each do |t| %>
 
-    <h3><%= t.thema %></h3>
-    <%= t.meeting %><br>
-    <%= t.comment %><br>
-    <%= t.user.name %><br>
+    <p><%= t.thematype %><%= t.thema %></p>
+    開催日時：<%= t.hosttime %><br>
+    グループ人数：<%= t.number %>名<br>
+    レベル：<%= t.level %><br>
+    募集期限：<%= t.limittime %><br>
+    コメント：<%= t.comment %><br>
+    投稿日時：<%= t.created_at %><br>
     <br>
     <% end %><br>
 
     <h2>ユーザーがいいねした投稿一覧</h2>
     <% @user.liked_tweets.each do |t| %>
+    <p><%= t.thematype %><%= t.thema %></p>
     <%= t.user.name %><br>
-    <h3><%= t.thema %></h3><br>
     <% end %>
 
     <%= link_to "Tweet一覧に戻る", tweets_path %>

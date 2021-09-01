@@ -1,8 +1,7 @@
 class TweetsController < ApplicationController
-
   before_action :authenticate_user!
   # before_action :set_tweet
-  after_action :set_tweet, except: :index
+  after_action :set_tweet, except: [:index, :create, :destroy]
 
     def index
         @tweet = Tweet.new
