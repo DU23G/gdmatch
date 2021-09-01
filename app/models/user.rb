@@ -9,6 +9,8 @@ class User < ApplicationRecord
   has_many :liked_tweets, through: :likes, source: :tweet
 
   has_many :remarks, dependent: :destroy
+  
+  has_many :tweet_takers, foreign_key: "taker_id", dependent: :destroy
 
   validates :name, presence: true
   validates :profile, length: { maximum: 200 }

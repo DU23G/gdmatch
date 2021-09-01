@@ -21,9 +21,14 @@ Rails.application.routes.draw do
    post "tweets/:id" => 'tweets#show'
 
   resources :tweets do
+    member do
+      post 'take'
+      post 'cancel'
+      # get 'take'
+      # get 'cancel'
+    end
     resources :likes, only: [:create, :destroy,]
     resources :remarks, only: [:create]
-
-end
+  end
 
 end

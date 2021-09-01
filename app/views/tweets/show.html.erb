@@ -55,6 +55,20 @@
   <% end %>
 </div>
 
-<%= link_to "編集する", edit_tweet_path(@tweet.id) %>
+<%# # 投稿者とログイン中のユーザーが一致しない場合のみボタンを表示させる %>
+<% if @user.id != current_user.id %>
+<%# # 該当の投稿の申込者の中に、ログイン中のユーザーが含まれているか否かで場合分けする %>
+<% if @tweet.taker_ids.include?(current_user.id) %>
+<%= button_to "キャンセルする", cancel_tweet_path(@tweet.id), data: { confirm: "こちらの投稿の申し込みをキャンセルしますか？" } %>
+<% else %>
+<%= button_to "申し込む", take_tweet_path(@tweet.id), data: { confirm: "こちらの投稿に申し込みますか？" } %>
+<% end %>
+<% end %>
 
+<%= flash[:alert] %>
+
+<br>
+<%= link_to "編集する", edit_tweet_path(@tweet.id) %>
+<br>
+<br>
 <%= link_to "Tweet一覧に戻る", tweets_path %>

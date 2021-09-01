@@ -1,7 +1,9 @@
 class TweetsController < ApplicationController
 
   before_action :authenticate_user!
- 
+  # before_action :set_tweet
+  after_action :set_tweet, except: :index
+
     def index
         @tweet = Tweet.new
 
@@ -32,6 +34,8 @@ class TweetsController < ApplicationController
 
       @remarks = @tweet.remarks
       @remark = Remark.new
+
+      @user = @tweet.user
     end
 
     def edit
@@ -53,9 +57,32 @@ class TweetsController < ApplicationController
       redirect_to action: :index
     end
 
+    def take
+      @tweet = Tweet.find(params[:id])
+      # 該当の投稿とログイン中のユーザーとの中間テーブルのレコードを作成する
+      TweetTaker.create(tweet_id: @tweet.id, taker_id: current_user.id)
+      # フラッシュメッセージを表示（フラッシュメッセージを表示させない場合は書かなくて大丈夫です）
+      flash[:alert] = '申し込みが完了しました。'
+      # 投稿の詳細ページにリダイレクト
+      redirect_to action: :show
+    end
+
+    def cancel
+      @tweet = Tweet.find(params[:id])
+      # 中間テーブルの中から、該当の投稿とログイン中のユーザーによるレコードを抽出する
+      tweet_taker = TweetTaker.find_by(tweet_id: @tweet.id, taker_id: current_user.id)
+      tweet_taker.destroy
+      flash[:alert] = 'キャンセルが完了しました。'
+      redirect_to action: :show
+    end
+
     private
       def tweet_params
         params.require(:tweet).permit(:thema, :meeting, :comment, :meetingtype, :hosttime, :thematype, :limittime, :level, :number)
+    end
+
+      def set_tweet
+        @tweet = Tweet.find(params[:id])
     end
 
 end

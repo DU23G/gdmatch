@@ -7,4 +7,7 @@ class Tweet < ApplicationRecord
 
     has_many :remarks, dependent: :destroy
 
+    has_many :tweet_takers, dependent: :destroy
+    has_many :takers, through: :tweet_takers, dependent: :destroy
+
 end
