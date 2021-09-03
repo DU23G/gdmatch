@@ -14,12 +14,17 @@ class User < ApplicationRecord
 
   validates :name, presence: true
   validates :profile, length: { maximum: 200 }
-  validate :tweet_takers_count_must_be_within_limit
+  # validate :tweet_takers_count_must_be_within_limit
 
   def already_liked?(tweet)
     self.likes.exists?(tweet_id: tweet.id)
   end
-  
+
+  has_many :group_users, dependent: :destroy
+  has_many :groups, through: :group_users, dependent: :destroy
+
+  has_many :comments, dependent: :destroy
+
   # MAX_TWEET_TAKERS_COUNT = 2
 
   # private
