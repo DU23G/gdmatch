@@ -3,7 +3,7 @@ class CommentsController < ApplicationController
 
     def create
       group = Group.find(params[:group_id])
-      comment = group.comments.build(comment_params) #buildを使い、contentとgroup_idの二つを同時に代入
+      comment = group.comments.build(comment_params)
       comment.user_id = current_user.id
       if comment.save
         flash[:success] = "コメントしました"
