@@ -7,33 +7,28 @@
     </div>
     <br>
     <br>
-    <div class="chat-group-show-talk">
-        トーク<br>
-        下にコメント機能をつければよい？<br>
-    </div>
-    <%= link_to "グループへ作成画面に戻る", groups_path %>
-</div>
-
-<div class="comment-wrapper">
-    <p>コメント一覧</p>
-    <% @comments.each do |c| %>
-    <div>
-        <%= c.user.email unless c.user.blank? %>
+    <div class="comment-wrapper">
+        <p>グループチャット</p>
+        <% @comments.each do |c| %>
+        <div>
+            <%= c.user.email unless c.user.blank? %>
+            <br>
+            <%= c.content %>
+        </div>
         <br>
-        <%= c.content %>
-    </div>
-    <br>
-    <% end %>
+        <% end %>
 
-    <% if user_signed_in? %>
-    <%= form_with(model: [@tweet, @comment], local: true) do |f| %>
-    <%= f.text_area :content %>
-    <%= button_tag type: "submit" do %>
-    <i class="far fa-comments"></i> コメントする
-    <% end %>
-    <% end %>
-    <% end %>
+        <% if user_signed_in? %>
+        <%= form_with(model: [@group, @comment], local: true) do |f| %>
+        <%= f.text_area :content %>
+        <%= button_tag type: "submit" do %>
+        <i class="far fa-comments"></i> メッセージ送信
+        <% end %>
+        <% end %>
+        <% end %>
+    </div>
+    <%= link_to "グループへ作成画面に戻る", groups_path %><br>
 </div>
 
-<%= link_to "グループ画面へ", groups_path %>
+<%= link_to "グループ画面へ", groups_path(@group.id) %><br>
 <%= link_to "Tweet一覧に戻る", tweets_path %>
