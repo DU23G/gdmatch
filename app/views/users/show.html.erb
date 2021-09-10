@@ -25,6 +25,23 @@
     <% @user.liked_tweets.each do |t| %>
     <p><%= t.thematype %><%= t.thema %></p>
     <%= t.user.name %><br>
-    <% end %>
+    <% end %><br>
 
-    <%= link_to "Tweet一覧に戻る", tweets_path %>
+    <% if @user.id == current_user.id %>
+
+    <% else %>
+    <h2><%= @user.name %>さんとDMしてみよう！</h2>
+    <% if @isRoom == true %>
+    <p><a href="/rooms/<%= @roomId %>">チャットへ</a>
+        <% else %>
+        <%= form_for @room do |f| %>
+        <%= fields_for @entry do |e| %>
+        <%= e.hidden_field :user_id, :value=> @user.id %>
+        <% end %>
+        <%= f.submit "チャットを始める" %>
+        <% end %>
+        <% end %>
+        <% end %>
+
+        <br>
+        <%= link_to "Tweet一覧に戻る", tweets_path %>
