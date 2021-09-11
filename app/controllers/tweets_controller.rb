@@ -1,11 +1,9 @@
 class TweetsController < ApplicationController
   before_action :authenticate_user!
   # before_action :set_tweet
-  after_action :set_tweet, except: [:index, :create, :destroy]
+  after_action :set_tweet, except: [:index, :new, :create, :destroy]
 
     def index
-        @tweet = Tweet.new
-
       if params[:search] == nil
           @tweets= Tweet.all.page(params[:page]).per(10)
       elsif params[:search] == ''
@@ -16,6 +14,10 @@ class TweetsController < ApplicationController
 
     end
 
+    def new
+      @tweet = Tweet.new
+    end
+
     def create
         tweet = Tweet.new(tweet_params)
 
@@ -24,7 +26,7 @@ class TweetsController < ApplicationController
         if tweet.save
           redirect_to :action => "index"
         else
-          redirect_to :action => "index"
+          redirect_to :action => "new"
         end
     end
 

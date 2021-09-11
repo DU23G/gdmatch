@@ -10,9 +10,9 @@ Rails.application.routes.draw do
   root "toppages#index"
 
   # 以下、書かれていなかったルーティング
-  # get    'tweets/new'      => 'tweets#new'
   # put    'tweets/:id'      => 'tweets#update'
-  
+
+  get    'tweets/new'      => 'tweets#new'
   post "tweets/:id" => 'tweets#show'
 
   resources :tweets do

@@ -1,40 +1,58 @@
-<div class="chat-group">
-    　 <h1>チャットグループ一覧</h1>
-    <div class="group-search">
-        <div class="group-search-form">
-            <%= form_with url: groups_path do |f| %>
-            <%= f.text_field :keyword, placeholder: "グループ検索", class: "group-search-form-input" %>
-            <%= f.submit '検索' %>
-            <% end %>
-        </div>
-        <div class="group-new">
-            <%= link_to 'グループ作成', new_group_path %>
-        </div>
+<!DOCTYPE html>
+<html lang="ja">
 
-        <% if @group_joining == [] %>
-        <%= @group_lists_none %>
-        <% else %>
-        <div class="group-list">
-            <ul class="group-list-table">
-                <% @group_lists.each do |list| %>
-                <% if list.user_ids.include?(current_user.id) %>
-                <li class="group-list-table-each-group">
-                    <%= link_to "/groups/#{list.id}" do %>
-                    <%= list.name %>(<%= list.user_ids.count %>)
-                    <%= link_to '編集', edit_group_path(list.id), method: :get %>
-                    <%= link_to '削除', "/groups/#{list.id}", method: :delete %>
+    <head>
+        <meta charset="UTF-8">
+        <meta neme="viewport" content="width=device-width, initial-scale=1">
+        <title>GD match</title>
+        <link rel="stylesheet" href="../../assets/stylesheets/html5reset-1.6.1.css">
+
+    </head>
+
+    <body>
+        <div align="center">
+
+            <div class="chat-group">
+                　 <h1>チャットグループ一覧</h1>
+                <div class="group-search">
+                    <div class="group-search-form">
+                        <%= form_with url: groups_path do |f| %>
+                        <%= f.text_field :keyword, placeholder: "グループ検索", class: "group-search-form-input" %>
+                        <%= f.submit '検索' %>
+                        <% end %>
+                    </div>
+                    <div class="group-new">
+                        <%= link_to 'グループ作成', new_group_path %>
+                    </div>
+
+                    <% if @group_joining == [] %>
+                    <%= @group_lists_none %>
+                    <% else %>
+                    <div class="group-list">
+                        <ul class="group-list-table">
+                            <% @group_lists.each do |list| %>
+                            <% if list.user_ids.include?(current_user.id) %>
+                            <li class="group-list-table-each-group">
+                                <%= link_to "/groups/#{list.id}" do %>
+                                <%= list.name %>(<%= list.user_ids.count %>)
+                                <%= link_to '編集', edit_group_path(list.id), method: :get %>
+                                <%= link_to '削除', "/groups/#{list.id}", method: :delete %>
+                                <% end %>
+                            </li>
+                            <% end %>
+                            <% end %>
+                        </ul>
+                    </div>
                     <% end %>
-                </li>
-                <% end %>
-                <% end %>
-            </ul>
+
+                </div>
+                <div class="user-page">
+                    <%= link_to 'ユーザーページへ', current_user %><br>
+                    <%= link_to '投稿画面へ', tweets_path %>
+
+                </div>
+            </div>
         </div>
-        <% end %>
+    </body>
 
-    </div>
-    <div class="user-page">
-        <%= link_to 'ユーザーページへ', current_user %><br>
-        <%= link_to '投稿画面へ', tweets_path %>
-
-    </div>
-</div>
+</html>

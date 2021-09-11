@@ -1,12 +1,29 @@
-<h1>グループ編集</h1>
+<!DOCTYPE html>
+<html lang="ja">
 
-<%= form_with(model: @group, local: true) do |f| %>
-<div class="group-new-form">
-    <div class="gtoup-new-form-name">
-        <%= f.label :name, 'グループ名' %>
-        <%= f.text_field :name, class: 'form-control' %><br>
-        <%= f.collection_check_boxes :user_ids, User.all, :id, :name %>
-    </div>
-    <%= f.submit '更新', class: "btn btn-primary" %>
-</div>
-<% end %>
+    <head>
+        <meta charset="UTF-8">
+        <meta neme="viewport" content="width=device-width, initial-scale=1">
+        <title>GD match</title>
+        <link rel="stylesheet" href="../../assets/stylesheets/html5reset-1.6.1.css">
+
+    </head>
+
+    <body>
+        <div align="center">
+            <h1>グループ編集</h1>
+
+            <%= form_with(model: @group, local: true) do |f| %>
+            <div class="group-new-form">
+                <div class="gtoup-new-form-name">
+                    <%= f.label :name, 'グループ名' %>
+                    <%= f.text_field :name, class: 'form-control' %><br>
+                    <%= f.collection_check_boxes :user_ids, User.all, :id, :name %>
+                </div>
+                <%= f.submit '更新', class: "btn btn-primary" %>
+            </div>
+            <% end %>
+        </div>
+    </body>
+
+</html>

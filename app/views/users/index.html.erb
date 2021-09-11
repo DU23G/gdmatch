@@ -1,11 +1,30 @@
-<h1>DMサンプルアプリ</h1>
-<% if user_signed_in? %>
-<h2>Hello <%= current_user.email %></h2>
-<% @users.each do |u| %>
-<p><a href="/users/<%= u.id %>"><%= u.email %>さん</a></p>
-<hr />
-<% end %> <%= link_to "ログアウト", destroy_user_session_path, :method =>
+<!DOCTYPE html>
+<html lang="ja">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta neme="viewport" content="width=device-width, initial-scale=1">
+        <title>GD match</title>
+        <link rel="stylesheet" href="../../assets/stylesheets/html5reset-1.6.1.css">
+
+    </head>
+
+    <body>
+        <div align="center">
+
+            <h1>DM相手一覧</h1>
+            <% if user_signed_in? %>
+            <h2>Hello <%= current_user.email %></h2>
+            <% @users.each do |u| %>
+            <p><a href="/users/<%= u.id %>"><%= u.email %>さん</a></p>
+            <hr />
+            <% end %> <%= link_to "ログアウト", destroy_user_session_path, :method =>
 :delete %> <% else %> <%= link_to "ユーザーを登録する",
 new_user_registration_path %>
-<br />
-<%= link_to "ログインする", new_user_session_path %> <% end %>
+            <br />
+            <%= link_to "ログインする", new_user_session_path %> <% end %>
+            <%= link_to "一覧へ戻る", tweets_path %>
+        </div>
+    </body>
+
+</html>

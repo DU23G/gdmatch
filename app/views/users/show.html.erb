@@ -1,47 +1,66 @@
-<h1>ユーザー情報</h1>
-<p>名前 : <%= @user.name %></p>
-<p>メールアドレス : <%= @user.email %></p>
-<p>プロフィール : <%= @user.profile %></p>
+<!DOCTYPE html>
+<html lang="ja">
 
-<% if current_user.id == @user.id %>
-<%= link_to "編集する", edit_user_registration_path %>
-<% end %><br>
+    <head>
+        <meta charset="UTF-8">
+        <meta neme="viewport" content="width=device-width, initial-scale=1">
+        <title>GD match</title>
+        <link rel="stylesheet" href="../../assets/stylesheets/html5reset-1.6.1.css">
 
-<div>
-    <h2>ユーザーの投稿一覧</h2><br>
-    <% @user.tweets.each do |t| %>
+    </head>
 
-    <p><%= t.thematype %><%= t.thema %></p>
-    開催日時：<%= t.hosttime %><br>
-    グループ人数：<%= t.number %>名<br>
-    レベル：<%= t.level %><br>
-    募集期限：<%= t.limittime %><br>
-    コメント：<%= t.comment %><br>
-    投稿日時：<%= t.created_at %><br>
-    <br>
-    <% end %><br>
+    <body>
+        <div align="center">
 
-    <h2>ユーザーがいいねした投稿一覧</h2>
-    <% @user.liked_tweets.each do |t| %>
-    <p><%= t.thematype %><%= t.thema %></p>
-    <%= t.user.name %><br>
-    <% end %><br>
+            <h1>ユーザー情報</h1>
+            <p>名前 : <%= @user.name %></p>
+            <p>メールアドレス : <%= @user.email %></p>
+            <p>プロフィール : <%= @user.profile %></p>
 
-    <% if @user.id == current_user.id %>
+            <% if current_user.id == @user.id %>
+            <%= link_to "編集する", edit_user_registration_path %>
+            <% end %><br>
 
-    <% else %>
-    <h2><%= @user.name %>さんとDMしてみよう！</h2>
-    <% if @isRoom == true %>
-    <p><a href="/rooms/<%= @roomId %>">チャットへ</a>
-        <% else %>
-        <%= form_for @room do |f| %>
-        <%= fields_for @entry do |e| %>
-        <%= e.hidden_field :user_id, :value=> @user.id %>
-        <% end %>
-        <%= f.submit "チャットを始める" %>
-        <% end %>
-        <% end %>
-        <% end %>
+            <div>
+                <h2>ユーザーの投稿一覧</h2><br>
+                <% @user.tweets.each do |t| %>
 
-        <br>
-        <%= link_to "Tweet一覧に戻る", tweets_path %>
+                <p><%= t.thematype %><%= t.thema %></p>
+                開催日時：<%= t.hosttime %><br>
+                グループ人数：<%= t.number %>名<br>
+                レベル：<%= t.level %><br>
+                募集期限：<%= t.limittime %><br>
+                コメント：<%= t.comment %><br>
+                投稿日時：<%= t.created_at %><br>
+                <br>
+                <% end %><br>
+
+                <h2>ユーザーがいいねした投稿一覧</h2>
+                <% @user.liked_tweets.each do |t| %>
+                <p><%= t.thematype %><%= t.thema %></p>
+                <%= t.user.name %><br>
+                <% end %><br>
+
+                <% if @user.id == current_user.id %>
+
+                <% else %>
+                <h2><%= @user.name %>さんとDMしてみよう！</h2>
+                <% if @isRoom == true %>
+                <p><a href="/rooms/<%= @roomId %>">チャットへ</a>
+                    <% else %>
+                    <%= form_for @room do |f| %>
+                    <%= fields_for @entry do |e| %>
+                    <%= e.hidden_field :user_id, :value=> @user.id %>
+                    <% end %>
+                    <%= f.submit "チャットを始める" %>
+                    <% end %>
+                    <% end %>
+                    <% end %>
+
+                    <br>
+                    <%= link_to "Tweet一覧に戻る", tweets_path %>
+
+            </div>
+    </body>
+
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta neme="viewport" content="width=device-width, initial-scale=1">
+        <title>GD match</title>
+        <link rel="stylesheet" href="../../assets/stylesheets/html5reset-1.6.1.css">
+
+    </head>
+
+    <body>
+        <div align="center">
+
+            <h1>GeekTwitter</h1>
+            <h3>新規Tweet</h3>
+            <div align="center">
+
+                <%= form_for @tweet do |f| %>
+                <%# https://rails.256.tips/ %>
+                <div class="field">
+                    <%= f.label :"開催日時" %>
+                    <%= f.datetime_field :hosttime %>
+                </div>
+
+                <div class="field">
+                    <%= f.label :"テーマ型" %>
+                    <%= f.select :thematype, [["課題解決型", "「課題解決型」"], ["自由討論型", "「自由討論型」"], ["ディベート型", "「ディベート型」"], ["選択型", "「選択型」"]], include_blank: "選択して下さい" %>
+                </div>
+
+                <div class="field">
+                    <%= f.label :"テーマ" %>
+                    <%= f.text_field :thema, :size => 140 %>
+                </div>
+
+                <div class="field">
+                    <%= f.label :"グループ人数" %>
+                    <%= f.number_field :number, step: "1", min: "3" %>名
+                </div>
+
+                <div class="field">
+                    <%= f.label :"レベル" %>
+                    <%= f.select :level, [["初級", "初級"], ["中級", "中級"], ["上級", "上級"]], include_blank: "選択して下さい" %>
+                </div>
+
+                <div class="field">
+                    <%= f.label :"ミーティングツール" %>
+                    <%= f.select :meetingtype, [["Zoom", "Zoom"], ["Teams", "Teams"], ["Webex", "Webex"], ["GoogleMeet", "GoogleMeet"], ["Skype", "Skype"], ["Calling", "Calling"], ["Discord", "Discord"]], include_blank: "選択して下さい" %>
+                </div>
+
+                <div class="field">
+                    <%= f.label :"ミーティング情報" %>
+                    <%= f.text_field :meeting, :size => 140 %>
+                </div>
+
+                <div class="field">
+                    <%= f.label :"募集期限" %>
+                    <%= f.datetime_field :limittime %>
+                </div>
+
+                <div class="field">
+                    <span class="field__label">
+                        <%= f.label :"コメント" %>
+                    </span>
+                    <span class="field__comment field__comment--red">
+                        <%= f.text_field :comment, :size => 140 %>
+                    </span>
+                </div>
+
+                <%= f.submit "投稿する" %>
+                <% end %>
+
+                <%= link_to "Tweet一覧に戻る", tweets_path %>
+            </div>
+    </body>
+
+</html>

@@ -11,7 +11,7 @@ class Tweet < ApplicationRecord
     has_many :tweet_takers, dependent: :destroy
     has_many :takers, through: :tweet_takers, dependent: :destroy
 
-    validate :tweet_takers_count_must_be_within_limit
+    # validate :tweet_takers_count_must_be_within_limit
 
 #   MAX_TWEET_TAKERS_COUNT = 2
 
@@ -21,4 +21,5 @@ class Tweet < ApplicationRecord
 #     errors.add("tweet_takers count limit: #{MAX_TWEET_TAKERS_COUNT}")
 #     end
 #   end
+
 end
