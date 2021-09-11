@@ -36,13 +36,13 @@
         <div class="tweet">
           <br>
           <h4><%= t.thematype %><%= t.thema %></h4><br>
-          開催日時：<%= t.hosttime %><br>
+          開催日時：<%= t.hosttime.to_s(:datetime_jp) %><br>
           グループ人数：<%= t.number %>名<br>
           レベル：<%= t.level %><br>
           ミーティングツール：<%= t.meetingtype %><br>
-          募集期限：<%= t.limittime %><br>
+          募集期限：<%= t.limittime.to_s(:datetime_jp) %><br>
           コメント：<%= t.comment %><br>
-          投稿日時：<%= t.created_at %><br>
+          投稿日時：<%= t.created_at.to_s(:datetime_jp) %><br>
 
           <% if user_signed_in? %>
           <% if current_user.already_liked?(t) %>

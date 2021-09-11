@@ -17,14 +17,14 @@
 
       <div class="tweet">
         <p><%= @tweet.thematype %><%= @tweet.thema %></p>
-        開催日時：<%= @tweet.hosttime %><br>
+        開催日時：<%= @tweet.hosttime.to_s(:datetime_jp) %><br>
         グループ人数：<%= @tweet.number %>名<br>
         レベル：<%= @tweet.level %><br>
         ミーティングツール：<%= @tweet.meetingtype %><br>
         ミーティング情報：<%= @tweet.meeting %><br>
-        募集期限：<%= @tweet.limittime %><br>
+        募集期限：<%= @tweet.limittime.to_s(:datetime_jp) %><br>
         コメント：<%= @tweet.comment %><br>
-        投稿日時：<%= @tweet.created_at %><br>
+        投稿日時：<%= @tweet.created_at.to_s(:datetime_jp) %><br>
 
         <br>
         <%= link_to "編集する", edit_tweet_path(@tweet.id) %><br>

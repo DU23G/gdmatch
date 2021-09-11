@@ -19,48 +19,48 @@
                 <%= form_for @tweet do |f| %>
                 <%# https://rails.256.tips/ %>
                 <div class="field">
-                    <%= f.label :"開催日時" %>
+                    <%= f.label :"開催日時" %><br>
                     <%= f.datetime_field :hosttime %>
                 </div>
 
                 <div class="field">
-                    <%= f.label :"テーマ型" %>
+                    <%= f.label :"テーマ型" %><br>
                     <%= f.select :thematype, [["課題解決型", "「課題解決型」"], ["自由討論型", "「自由討論型」"], ["ディベート型", "「ディベート型」"], ["選択型", "「選択型」"]], include_blank: "選択して下さい" %>
                 </div>
 
                 <div class="field">
-                    <%= f.label :"テーマ" %>
+                    <%= f.label :"テーマ" %><br>
                     <%= f.text_field :thema, :size => 140 %>
                 </div>
 
                 <div class="field">
-                    <%= f.label :"グループ人数" %>
+                    <%= f.label :"グループ人数" %><br>
                     <%= f.number_field :number, step: "1", min: "3" %>名
                 </div>
 
                 <div class="field">
-                    <%= f.label :"レベル" %>
+                    <%= f.label :"レベル" %><br>
                     <%= f.select :level, [["初級", "初級"], ["中級", "中級"], ["上級", "上級"]], include_blank: "選択して下さい" %>
                 </div>
 
                 <div class="field">
-                    <%= f.label :"ミーティングツール" %>
+                    <%= f.label :"ミーティングツール" %><br>
                     <%= f.select :meetingtype, [["Zoom", "Zoom"], ["Teams", "Teams"], ["Webex", "Webex"], ["GoogleMeet", "GoogleMeet"], ["Skype", "Skype"], ["Calling", "Calling"], ["Discord", "Discord"]], include_blank: "選択して下さい" %>
                 </div>
 
                 <div class="field">
-                    <%= f.label :"ミーティング情報" %>
+                    <%= f.label :"ミーティング情報" %><br>
                     <%= f.text_field :meeting, :size => 140 %>
                 </div>
 
                 <div class="field">
-                    <%= f.label :"募集期限" %>
+                    <%= f.label :"募集期限" %><br>
                     <%= f.datetime_field :limittime %>
                 </div>
 
                 <div class="field">
                     <span class="field__label">
-                        <%= f.label :"コメント" %>
+                        <%= f.label :"コメント" %><br>
                     </span>
                     <span class="field__comment field__comment--red">
                         <%= f.text_field :comment, :size => 140 %>
