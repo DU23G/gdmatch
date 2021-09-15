@@ -17,9 +17,8 @@
                     <nav>
                         <ul>
                             <li>ようこそ、GD matchへ</li>
-                            <li><a><%= link_to "投稿ページへ", :controller => "tweets", :action => "index" %></a></li>
-                            <li class="current"><a href="index.html">ホーム</a></li>
-                            <li><%= link_to "ログイン", tweets_path %></li>
+                            <li class="current"><a href="tweets">ホーム</a></li>
+                            <li><%= link_to "ログイン", new_user_session_path %></li>
                             <li><%= link_to "新規登録", new_user_registration_path %></li>
                         </ul>
                     </nav>
@@ -40,7 +39,7 @@
                         今すぐに練習相手を探そう。</h2>
                     <h3>GD matchをはじめよう</h3>
                     <h4>大学のメールアドレスで<%= link_to "新規登録", new_user_registration_path %></h4>
-                    <h5>アカウントをお持ちの場合は<%= link_to "ログイン", tweets_path %></h5>
+                    <h5>アカウントをお持ちの場合は<%= link_to "ログイン", new_user_session_path %></h5>
                 </main>
             </div>
 
