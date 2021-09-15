@@ -1,5 +1,5 @@
 class TweetsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:index]
   # before_action :set_tweet
   after_action :set_tweet, except: [:index, :new, :create, :destroy]
 
@@ -11,7 +11,6 @@ class TweetsController < ApplicationController
       else
           @tweets = Tweet.where("thema LIKE ? ",'%' + params[:search] + '%').page(params[:page]).per(10)
       end
-
     end
 
     def new
@@ -32,7 +31,6 @@ class TweetsController < ApplicationController
 
     def show
       @tweet = Tweet.find(params[:id])
-
       @remarks = @tweet.remarks
       @remark = Remark.new
 
@@ -60,12 +58,22 @@ class TweetsController < ApplicationController
 
     def take
       @tweet = Tweet.find(params[:id])
+
+      #tweet_takerテーブルからtweet_idがこのtweetのidと同じレコードの数をカウントして数を左辺に代入
+      tweettaker_tweetid_count_plusone = TweetTaker.where(tweet_id:@tweet.id).count + 1
+      #tweetテーブルからこのtweetのnumberの値を左辺に代入
+      tweet_number_count = @tweet.number
       # 該当の投稿とログイン中のユーザーとの中間テーブルのレコードを作成する
-      TweetTaker.create(tweet_id: @tweet.id, taker_id: current_user.id)
-      # フラッシュメッセージを表示（フラッシュメッセージを表示させない場合は書かなくて大丈夫です）
-      flash[:alert] = '申し込みが完了しました。'
-      # 投稿の詳細ページにリダイレクト
-      redirect_to action: :show
+      if tweettaker_tweetid_count_plusone < tweet_number_count
+        TweetTaker.create(tweet_id: @tweet.id, taker_id: current_user.id)
+        # フラッシュメッセージを表示（フラッシュメッセージを表示させない場合は書かなくて大丈夫です）
+        flash[:alert] = '申し込みが完了しました。'
+        # 投稿の詳細ページにリダイレクト
+        redirect_to action: :show
+      else
+        flash[:alert] = '申し込み上限に達しているため予約できませんでした。'
+        redirect_to action: :show
+      end
     end
 
     def cancel
@@ -80,10 +88,10 @@ class TweetsController < ApplicationController
     private
       def tweet_params
         params.require(:tweet).permit(:thema, :meeting, :comment, :meetingtype, :hosttime, :thematype, :limittime, :level, :number)
-    end
+      end
 
       def set_tweet
         @tweet = Tweet.find(params[:id])
-    end
+      end
 
 end

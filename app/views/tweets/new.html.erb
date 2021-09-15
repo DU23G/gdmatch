@@ -6,6 +6,7 @@
         <meta neme="viewport" content="width=device-width, initial-scale=1">
         <title>GD match</title>
         <link rel="stylesheet" href="../../assets/stylesheets/html5reset-1.6.1.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/base.css">
 
     </head>
 
@@ -30,7 +31,7 @@
 
                 <div class="field">
                     <%= f.label :"テーマ" %><br>
-                    <%= f.text_field :thema, :size => 140 %>
+                    <%= f.text_field :thema %>
                 </div>
 
                 <div class="field">
@@ -50,7 +51,7 @@
 
                 <div class="field">
                     <%= f.label :"ミーティング情報" %><br>
-                    <%= f.text_field :meeting, :size => 140 %>
+                    <%= f.text_field :meeting %>
                 </div>
 
                 <div class="field">
@@ -63,7 +64,7 @@
                         <%= f.label :"コメント" %><br>
                     </span>
                     <span class="field__comment field__comment--red">
-                        <%= f.text_field :comment, :size => 140 %>
+                        <%= f.text_field :comment %>
                     </span>
                 </div>
 
