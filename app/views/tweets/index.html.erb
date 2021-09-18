@@ -7,74 +7,71 @@
     <title>GD match</title>
     <link rel="stylesheet" href="../../assets/stylesheets/html5reset-1.6.1.css">
     <link rel="stylesheet" href="../../assets/stylesheets/base.css">
+    <link rel="stylesheet" href="../../assets/stylesheets/tweets.scss">
 
   </head>
 
   <body>
-    <div align="center">
-      <br>
-      <br>
-      <h1>GD match</h1>
-      <% if user_signed_in? %> <%= link_to "マイページへ", user_path(current_user.id) %>　 <% end %>
-      <h2>参加者を募集する</h2><br>
+    <br>
+    <br>
+    <h2>参加者を募集する</h2><br>
 
-      <%= link_to "新規投稿ページへ", tweets_new_path %><br>
-      <br>
+    <%= link_to "新規投稿ページへ", tweets_new_path %><br>
+    <br>
 
-      <h2>参加者になる</h2>
+    <h2>参加者になる</h2>
+    <br>
+    <h3>募集枠を検索</h3>
+    <%= form_tag({controller:"tweets",action:"index"}, method: :get) do %>
+    <%= text_field_tag :search %>
+    <%= submit_tag '検索する'  %>
+    <% end %>
 
-      <h3>募集枠を検索</h3>
-      <%= form_tag({controller:"tweets",action:"index"}, method: :get) do %>
-      <%= text_field_tag :search %>
-      <%= submit_tag '検索する'  %>
-      <% end %>
+    <br>
+    <%= page_entries_info @tweets %>
 
-      <br>
-      <%= page_entries_info @tweets %>
+    <div class="t-container">
+      <% @tweets.each do |t| %>
+      <div class="t-item">
+        <br>
+        <h4><%= t.thematype %><%= t.thema %></h4><br>
+        開催日時：<%= t.hosttime.to_s(:datetime_jp) %><br>
+        グループ人数：<%= t.number %>名<br>
+        レベル：<%= t.level %><br>
+        ミーティングツール：<%= t.meetingtype %><br>
+        募集期限：<%= t.limittime.to_s(:datetime_jp) %><br>
+        コメント：<%= t.comment %><br>
+        投稿日時：<%= t.created_at.to_s(:datetime_jp) %><br>
 
-      <div class="tweets-container">
-        <% @tweets.each do |t| %>
-        <div class="tweet">
-          <br>
-          <h4><%= t.thematype %><%= t.thema %></h4><br>
-          開催日時：<%= t.hosttime.to_s(:datetime_jp) %><br>
-          グループ人数：<%= t.number %>名<br>
-          レベル：<%= t.level %><br>
-          ミーティングツール：<%= t.meetingtype %><br>
-          募集期限：<%= t.limittime.to_s(:datetime_jp) %><br>
-          コメント：<%= t.comment %><br>
-          投稿日時：<%= t.created_at.to_s(:datetime_jp) %><br>
-
-          <% if user_signed_in? %>
-          <% if current_user.already_liked?(t) %>
-          <%= link_to tweet_like_path(id: t.id, tweet_id: t.id), method: :delete do %>
-          <i class="fas fa-heart"></i><%= t.likes.count %>
-          <% end %>
-          <% else %>
-          <%= link_to tweet_likes_path(id: t.id, tweet_id: t.id), method: :post do %>
-          <i class="far fa-heart"></i><%= t.likes.count %>
-          <% end %>
-          <% end %>
-          <% else %>
-          <i class="far fa-heart"></i><%= t.likes.count %>
-          <% end %><br>
-
-          <a href="/users/<%= t.user.id %>"><%= t.user.name %></a><br>
-
-          <%= button_to "確認", tweet_path(t.id) %>
-          <% if user_signed_in? && current_user.id == t.user_id %>
-          <%= link_to "編集", edit_tweet_path(t.id) %> <%= link_to "削除", tweet_path(t.id), method: :delete %>
-          <% end %><br>
-
-        </div>
-
+        <% if user_signed_in? %>
+        <% if current_user.already_liked?(t) %>
+        <%= link_to tweet_like_path(id: t.id, tweet_id: t.id), method: :delete do %>
+        <i class="fas fa-heart"></i><%= t.likes.count %>
         <% end %>
-      </div>
+        <% else %>
+        <%= link_to tweet_likes_path(id: t.id, tweet_id: t.id), method: :post do %>
+        <i class="far fa-heart"></i><%= t.likes.count %>
+        <% end %>
+        <% end %>
+        <% else %>
+        <i class="far fa-heart"></i><%= t.likes.count %>
+        <% end %><br>
 
-      <%= paginate @tweets %>
-      <br>
-      <%= button_to 'ログアウト', destroy_user_session_path, method: :delete %>
+        <a href="/users/<%= t.user.id %>"><%= t.user.name %></a><br>
+
+        <%= button_to "確認", tweet_path(t.id) %>
+        <% if user_signed_in? && current_user.id == t.user_id %>
+        <%= link_to "編集", edit_tweet_path(t.id) %> <%= link_to "削除", tweet_path(t.id), method: :delete %>
+        <% end %><br>
+      </div>
+      <% end %>
     </div>
+    <%= paginate @tweets %>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
   </body>
 
 </html>

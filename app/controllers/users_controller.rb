@@ -8,6 +8,11 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id]) 
 
+    # @tweet_taker = TweetTaker.where(taker_id: current_user.id)
+    # t_id = @tweet_taker.tweet_id
+    # @cc = Tweet.where(tweet_id: t_id)
+    
+
     c = [] #まず空の配列を準備（必須）、配列が2個にならないように注意
     @followings = @user.followings
     @followers = @user.followers

@@ -17,7 +17,7 @@
                     <nav>
                         <ul>
                             <li>ようこそ、GD matchへ</li>
-                            <li class="current"><a href="tweets">ホーム</a></li>
+                            <li class="current"><%= link_to "ホーム", tweets_path %></li>
                             <li><%= link_to "ログイン", new_user_session_path %></li>
                             <li><%= link_to "新規登録", new_user_registration_path %></li>
                         </ul>

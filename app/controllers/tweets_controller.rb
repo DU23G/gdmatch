@@ -69,7 +69,7 @@ class TweetsController < ApplicationController
         # フラッシュメッセージを表示（フラッシュメッセージを表示させない場合は書かなくて大丈夫です）
         flash[:alert] = '申し込みが完了しました。'
         # 投稿の詳細ページにリダイレクト
-        redirect_to action: :show
+        redirect_to controller: "groups", action: "index"
       else
         flash[:alert] = '申し込み上限に達しているため予約できませんでした。'
         redirect_to action: :show

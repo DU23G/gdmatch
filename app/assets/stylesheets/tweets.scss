@@ -1,3 +1,25 @@
 // Place all the styles related to the tweets controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+.t-container {
+  z-index: 1;
+  font-family: 游ゴシック, YuGothic, "ヒラギノ角ゴ Pro W3",
+    "Hiragino Kaku Gothic Pro", "Hiragino Kaku Gothic ProN", メイリオ, Meiryo,
+    "ＭＳ Ｐゴシック", sans-serif;
+  width: 90%;
+  display: flex;
+  flex-diretion: row;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: stretch;
+  align-content: stretch;
+}
+.t-item {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  background-color: white;
+  margin: 0.5%;
+  border-radius: 5px;
+}

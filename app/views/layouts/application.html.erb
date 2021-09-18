@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
   <head>
     <title>Gdmatch</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -13,6 +14,34 @@
   </head>
 
   <body>
-    <%= yield %>
+    <header>
+      <h1>
+        <%= link_to tweets_path do %>
+        <div class="icon"><img src="../../images/icon.png"></img></div>
+        <% end %>
+      </h1>
+      <div class="header-list">
+        <ul>
+          <% if user_signed_in? %>
+          <li>ようこそ、 @user.name さん</li>
+          <li><%= link_to "予約の確認" %></li>
+          <li><%= link_to "マイページ", user_path(current_user.id) %></li>
+          <li><%= button_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
+          <% else %>
+          <li>ようこそ、GD matchへ</li>
+          <li><%= link_to "ログイン", new_user_session_path %></li>
+          <li><%= link_to "新規登録", new_user_registration_path %></li>
+          <% end %>
+        </ul>
+      </div>
+    </header>
+    <main>
+      <%= yield %>
+    </main>
+    <footer>
+      <small><a href="">ホーム </a><a href="">サイト情報 </a><a href="">お問い合わせ </a>&copy; Copyright 2021 GD match, All
+        Rights Reserved.</small>
+    </footer>
   </body>
+
 </html>

@@ -33,7 +33,7 @@
 
                     <% if user_signed_in? %>
                     <%= form_with(model: [@group, @comment], local: true) do |f| %>
-                    <%= f.text_area :content %>
+                    <%= f.text_area :content %><br>
                     <%= button_tag type: "submit" do %>
                     <i class="far fa-comments"></i> メッセージ送信
                     <% end %>
