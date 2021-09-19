@@ -5,11 +5,11 @@ class TweetsController < ApplicationController
 
     def index
       if params[:search] == nil
-          @tweets= Tweet.all.page(params[:page]).per(10)
+          @tweets= Tweet.all.page(params[:page]).per(15)
       elsif params[:search] == ''
-          @tweets= Tweet.all.page(params[:page]).per(10)
+          @tweets= Tweet.all.page(params[:page]).per(15)
       else
-          @tweets = Tweet.where("thema LIKE ? ",'%' + params[:search] + '%').page(params[:page]).per(10)
+          @tweets = Tweet.where("thema LIKE ? ",'%' + params[:search] + '%').page(params[:page]).per(15)
       end
     end
 

@@ -13,60 +13,98 @@
 
   <body>
     <br>
+    <div align="center">
+      <h2>参加者になる</h2>
+    </div>
     <br>
-    <h2>参加者を募集する</h2><br>
-
-    <%= link_to "新規投稿ページへ", tweets_new_path %><br>
-    <br>
-
-    <h2>参加者になる</h2>
-    <br>
-    <h3>募集枠を検索</h3>
-    <%= form_tag({controller:"tweets",action:"index"}, method: :get) do %>
-    <%= text_field_tag :search %>
-    <%= submit_tag '検索する'  %>
-    <% end %>
+    <div align="center">
+      <h3>参加枠を検索</h3>
+      <%= form_tag({controller:"tweets",action:"index"}, method: :get) do %>
+      <%= text_field_tag :search %>
+      <%= submit_tag '検索する'  %>
+      <% end %>
+    </div>
 
     <br>
-    <%= page_entries_info @tweets %>
+    <div align="center">
+      <%= page_entries_info @tweets %>
+    </div>
 
     <div class="t-container">
       <% @tweets.each do |t| %>
       <div class="t-item">
         <br>
-        <h4><%= t.thematype %><%= t.thema %></h4><br>
-        開催日時：<%= t.hosttime.to_s(:datetime_jp) %><br>
-        グループ人数：<%= t.number %>名<br>
-        レベル：<%= t.level %><br>
-        ミーティングツール：<%= t.meetingtype %><br>
-        募集期限：<%= t.limittime.to_s(:datetime_jp) %><br>
-        コメント：<%= t.comment %><br>
-        投稿日時：<%= t.created_at.to_s(:datetime_jp) %><br>
+        <div align="center">
+          <p><b><%= t.thema %></b></p>
+        </div>
+        <br>
+        <table class="tweet-table">
+          <tbody>
+            <tr>
+              <th>開催日時</th>
+              <td><%= t.hosttime.to_s(:datetime_jp) %></td>
+            </tr>
+            <tr>
+              <th>テーマ型</th>
+              <td><%= t.thematype %></td>
+            </tr>
+            <tr>
+              <th>グループ人数</th>
+              <td><%= t.number %>名</td>
+            </tr>
+            <tr>
+              <th>レベル</th>
+              <td><%= t.level %></td>
+            </tr>
+            <tr>
+              <th>ツール</th>
+              <td><%= t.meetingtype %></td>
+            </tr>
+            <tr>
+              <th>募集期限</th>
+              <td><%= t.limittime.to_s(:datetime_jp) %></td>
+            </tr>
+            <tr>
+              <th>投稿日時</th>
+              <td><%= t.created_at.to_s(:datetime_jp) %></td>
+            </tr>
+          </tbody>
+        </table>
 
-        <% if user_signed_in? %>
-        <% if current_user.already_liked?(t) %>
-        <%= link_to tweet_like_path(id: t.id, tweet_id: t.id), method: :delete do %>
-        <i class="fas fa-heart"></i><%= t.likes.count %>
-        <% end %>
-        <% else %>
-        <%= link_to tweet_likes_path(id: t.id, tweet_id: t.id), method: :post do %>
-        <i class="far fa-heart"></i><%= t.likes.count %>
-        <% end %>
-        <% end %>
-        <% else %>
-        <i class="far fa-heart"></i><%= t.likes.count %>
-        <% end %><br>
-
-        <a href="/users/<%= t.user.id %>"><%= t.user.name %></a><br>
-
-        <%= button_to "確認", tweet_path(t.id) %>
-        <% if user_signed_in? && current_user.id == t.user_id %>
-        <%= link_to "編集", edit_tweet_path(t.id) %> <%= link_to "削除", tweet_path(t.id), method: :delete %>
-        <% end %><br>
+        <div align="center">
+          <% if user_signed_in? %>
+          <% if current_user.already_liked?(t) %>
+          <%= link_to tweet_like_path(id: t.id, tweet_id: t.id), method: :delete do %>
+          <i class="fas fa-heart"></i><%= t.likes.count %>
+          <% end %>
+          <% else %>
+          <%= link_to tweet_likes_path(id: t.id, tweet_id: t.id), method: :post do %>
+          <i class="far fa-heart"></i><%= t.likes.count %>
+          <% end %>
+          <% end %>
+          <% else %>
+          <i class="far fa-heart"></i><%= t.likes.count %>
+          <% end %><br>
+        </div>
+        <br>
+        <div align="center">
+          <a href="/users/<%= t.user.id %>"><%= t.user.name %></a><br>
+        </div>
+        <br>
+        <div align="center">
+          <%= button_to " 確認 ", tweet_path(t.id) %><br>
+          <% if user_signed_in? && current_user.id == t.user_id %>
+          <%= link_to "編集", edit_tweet_path(t.id) %>&nbsp;&nbsp;<%= link_to "削除", tweet_path(t.id), method: :delete %>
+          <% end %><br>
+        </div>
+        <br>
       </div>
       <% end %>
     </div>
-    <%= paginate @tweets %>
+
+    <div align="center">
+      <%= paginate @tweets %>
+    </div>
     <br>
     <br>
     <br>

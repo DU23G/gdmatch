@@ -19,7 +19,7 @@
   margin: 0;
 }
 body {
-  background-color: lightgrey;
+  background-color: rgb(218, 224, 235);
   min-height: 100vh;
   position: relative;
   font-family: "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro W3", "メイリオ",
@@ -30,9 +30,8 @@ body {
 }
 header {
   border-bottom: solid 3px darkblue;
-  height: 110px;
+  height: fit-content;
   background-color: white;
-  height: 60px;
   font-weight: bold;
   display: flex;
   justify-content: space-between;

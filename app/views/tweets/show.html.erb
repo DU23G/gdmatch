@@ -10,41 +10,102 @@
   </head>
 
   <body>
-    <div align="center">
+    <br>
 
-      <h1>以下の内容で募集しますか？</h1>
-      <h3>詳細</h3>
-
-      <div class="tweet">
-        <p><%= @tweet.thematype %><%= @tweet.thema %></p>
-        開催日時：<%= @tweet.hosttime.to_s(:datetime_jp) %><br>
-        グループ人数：<%= @tweet.number %>名<br>
-        レベル：<%= @tweet.level %><br>
-        ミーティングツール：<%= @tweet.meetingtype %><br>
-        ミーティング情報：<%= @tweet.meeting %><br>
-        募集期限：<%= @tweet.limittime.to_s(:datetime_jp) %><br>
-        コメント：<%= @tweet.comment %><br>
-        投稿日時：<%= @tweet.created_at.to_s(:datetime_jp) %><br>
-
+    <div class="t-container">
+      <div class="t-item">
         <br>
-        <%= link_to "編集する", edit_tweet_path(@tweet.id) %><br>
+        <div align="center">
+          <p><b><%= @tweet.thema %></b></p>
+        </div>
+        <br>
+        <table class="tweet-table">
+          <tbody>
+            <tr>
+              <th>開催日時</th>
+              <td><%= @tweet.hosttime.to_s(:datetime_jp) %></td>
+            </tr>
+            <tr>
+              <th>テーマ型</th>
+              <td><%= @tweet.thematype %></td>
+            </tr>
+            <tr>
+              <th>グループ人数</th>
+              <td><%= @tweet.number %>名</td>
+            </tr>
+            <tr>
+              <th>レベル</th>
+              <td><%= @tweet.level %></td>
+            </tr>
+            <tr>
+              <th>ツール</th>
+              <td><%= @tweet.meetingtype %></td>
+            </tr>
+            <tr>
+              <th>接続情報</th>
+              <td><%= @tweet.meeting %></td>
+            </tr>
+            <tr>
+              <th>募集期限</th>
+              <td><%= @tweet.limittime.to_s(:datetime_jp) %></td>
+            </tr>
+            <tr>
+              <th>コメント</th>
+              <td><%= @tweet.comment %></td>
+            </tr>
+            <tr>
+              <th>投稿日時</th>
+              <td><%= @tweet.created_at.to_s(:datetime_jp) %></td>
+            </tr>
+          </tbody>
+        </table>
 
-        <% if user_signed_in? %>
-        <% if current_user.already_liked?(@tweet) %>
-        <%= link_to tweet_like_path(@tweet), method: :delete do %>
-        <i class="fas fa-heart"></i><%= @tweet.likes.count %>
-        <% end %>
-        <% else %>
-        <%= link_to tweet_likes_path(@tweet), method: :post do %>
-        <i class="far fa-heart"></i><%= @tweet.likes.count %>
-        <% end %>
-        <% end %>
-        <% else %>
-        <i class="far fa-heart"></i><%= @tweet.likes.count %>
-        <% end %>
+        <div align="center">
+          <% if user_signed_in? %>
+          <% if current_user.already_liked?(@tweet) %>
+          <%= link_to tweet_like_path(id: @tweet.id, tweet_id: @tweet.id), method: :delete do %>
+          <i class="fas fa-heart"></i><%= @tweet.likes.count %>
+          <% end %>
+          <% else %>
+          <%= link_to tweet_likes_path(id: @tweet.id, tweet_id: @tweet.id), method: :post do %>
+          <i class="far fa-heart"></i><%= @tweet.likes.count %>
+          <% end %>
+          <% end %>
+          <% else %>
+          <i class="far fa-heart"></i><%= @tweet.likes.count %>
+          <% end %><br>
+        </div>
+        <br>
+        <div align="center">
+          <a href="/users/<%= @tweet.user.id %>"><%= @tweet.user.name %></a><br>
+        </div>
+        <br>
+        <div align="center">
+          <%# # 投稿者とログイン中のユーザーが一致しない場合のみボタンを表示させる %>
+          <% if @user.id != current_user.id %>
+          <%# # 該当の投稿の申込者の中に、ログイン中のユーザーが含まれているか否かで場合分けする %>
+          <% if @tweet.taker_ids.include?(current_user.id) %>
+          <%= button_to "キャンセルする", cancel_tweet_path(@tweet.id), data: { confirm: "こちらの投稿の申し込みをキャンセルしますか？" } %>
+          <% else %>
+          <%= button_to "申し込む", take_tweet_path(@tweet.id), data: { confirm: "こちらの投稿に申し込みますか？" } %>
+          <% end %>
+          <% else %>
+          <%= link_to "編集", edit_tweet_path(@tweet.id) %>&nbsp;&nbsp;<%= link_to "削除", tweet_path(@tweet.id), method: :delete %><br>
+          <% end %>
+          <%= flash[:alert] %>
+        </div>
+        <br>
+        <br>
       </div>
-      <a href="/users/<%= @tweet.user.id %>"><%= @tweet.user.name %></a><br>
+    </div>
 
+    <%# <input type="text" name="name" value="" placeholder="40文字まで" autocomplete="off"> %>
+    <%# <%= f.text_field :keyword, placeholder: "グループ検索", class: "group-search-form-input" %> %>
+    <%# <%= f.text_area :content %><br> %>
+
+    <div align="center">
+      <br>
+      <%# <%= link_to "グループ作成へ", groups_path %>
 
       <h2>この投稿にいいねしたユーザー</h2>
       <% @tweet.liked_users.each do |user| %>
@@ -73,25 +134,13 @@
         <% end %>
         <% end %>
       </div>
-
-      <%# # 投稿者とログイン中のユーザーが一致しない場合のみボタンを表示させる %>
-      <% if @user.id != current_user.id %>
-      <%# # 該当の投稿の申込者の中に、ログイン中のユーザーが含まれているか否かで場合分けする %>
-      <% if @tweet.taker_ids.include?(current_user.id) %>
-      <%= button_to "キャンセルする", cancel_tweet_path(@tweet.id), data: { confirm: "こちらの投稿の申し込みをキャンセルしますか？" } %>
-      <% else %>
-      <%= button_to "申し込む", take_tweet_path(@tweet.id), data: { confirm: "こちらの投稿に申し込みますか？" } %>
-      <% end %>
-      <% end %>
-
-      <%= flash[:alert] %>
-      <br>
-      <%# <%= link_to "グループ作成へ", groups_path %>
-
       <br>
       <br>
       <%= link_to "Tweet一覧に戻る", tweets_path %>
-
+      <br>
+      <br>
+      <br>
+      <br>
     </div>
   </body>
 

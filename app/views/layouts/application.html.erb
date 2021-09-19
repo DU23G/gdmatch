@@ -23,9 +23,9 @@
       <div class="header-list">
         <ul>
           <% if user_signed_in? %>
-          <li>ようこそ、 @user.name さん</li>
-          <li><%= link_to "予約の確認" %></li>
-          <li><%= link_to "マイページ", user_path(current_user.id) %></li>
+          <li><%= link_to "参加枠募集", tweets_new_path %></li>
+          <li><%= link_to "申込確認" %></li>
+          <li>ようこそ<a href="/users/<%= current_user.id %>"><%= current_user.name %></a>さん</li>
           <li><%= button_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
           <% else %>
           <li>ようこそ、GD matchへ</li>
@@ -39,8 +39,8 @@
       <%= yield %>
     </main>
     <footer>
-      <small><a href="">ホーム </a><a href="">サイト情報 </a><a href="">お問い合わせ </a>&copy; Copyright 2021 GD match, All
-        Rights Reserved.</small>
+      <small>&copy; Copyright 2021 GD match, All Rights Reserved.</small>
+      <%# <a href="">ホーム </a><a href="">サイト情報 </a><a href="">お問い合わせ </a> %>
     </footer>
   </body>
 
