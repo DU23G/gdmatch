@@ -6,40 +6,45 @@
     <meta neme="viewport" content="width=device-width, initial-scale=1">
     <title>GD match</title>
     <link rel="stylesheet" href="../../assets/stylesheets/html5reset-1.6.1.css">
+    <link rel="stylesheet" href="../../assets/stylesheets/users.scss">
 
   </head>
 
   <body>
-    <div align="center">
+    <br>
+    <div class="user-container" align="center">
+      <div class="user-buttomcontainer">
+        <br>
+        <p class="login-head"><b>ログイン</b></p>
+        <br>
+        <br>
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <div class="field">
+          <p>メールアドレス </p>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+        </div>
+        <br>
+        <div class="field">
+          <p>パスワード </p>
+          <%= f.password_field :password, autocomplete: "off" %>
+        </div>
+        <br>
+        <% if devise_mapping.rememberable? -%>
+        <div class="field">
+          <%= f.check_box :remember_me %>
+          <p>パスワードを保存する</p>
+        </div>
+        <br>
+        <% end -%>
 
-      <h2>ログイン</h2>
-      <p>※登録したメールアドレスとパスワードを入力してください。</p>
+        <div class="actions">
+          <%= f.submit "ログイン" %>
+        </div>
+        <br>
+        <% end %>
 
-      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-      <div class="field">
-        <h2>メールアドレス </h2><br />
-        <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+        <%= render "users/shared/links" %>
       </div>
-
-      <div class="field">
-        <h2>パスワード </h2><br />
-        <%= f.password_field :password, autocomplete: "off" %>
-      </div>
-
-      <% if devise_mapping.rememberable? -%>
-      <div class="field">
-        <%= f.check_box :remember_me %>
-        <h2>パスワードを保存する</h2>
-      </div>
-      <% end -%>
-
-      <div class="actions">
-        <%= f.submit "Log in" %>
-      </div>
-      <% end %>
-
-      <%= render "users/shared/links" %>
-
     </div>
   </body>
 

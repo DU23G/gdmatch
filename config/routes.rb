@@ -12,8 +12,12 @@ Rails.application.routes.draw do
 
   # root "users#index"
 
-  get "toppages/index" => "toppages#index"
-  root "toppages#index"
+  #ログイン後の遷移先をtweets#indexに変更
+  # get "toppages/index" => "toppages#index"
+  # root "toppages#index"
+
+    get "tweets/index" => "tweets#index"
+    root "tweets#index"
 
   # 以下、書かれていなかったルーティング
   # put    'tweets/:id'      => 'tweets#update'

@@ -6,47 +6,51 @@
     <meta neme="viewport" content="width=device-width, initial-scale=1">
     <title>GD match</title>
     <link rel="stylesheet" href="../../assets/stylesheets/html5reset-1.6.1.css">
+    <link rel="stylesheet" href="../../assets/stylesheets/users.scss">
 
   </head>
 
   <body>
-    <div align="center">
+    <br>
+    <div class="user-container" align="center">
+      <div class="user-buttomcontainer">
+        <br>
+        <p class="login-head"><b>新規登録</b></p>
+        <br>
+        <br>
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <%= render "users/shared/error_messages", resource: resource %>
 
-      <h2>Sign up</h2>
-
-      <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-      <%= render "users/shared/error_messages", resource: resource %>
-
-      <div class="field">
-        <%= f.label :name %><br />
-        <%= f.text_field :name, autofocus: true %>
+        <div class="field">
+          <%= f.label :ニックネーム %><br />
+          <%= f.text_field :name, autofocus: true %>
+        </div>
+        <br>
+        <div class="field">
+          <%= f.label :メールアドレス %><br />
+          <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+        </div>
+        <br>
+        <div class="field">
+          <%= f.label :パスワード %>
+          <% if @minimum_password_length %>
+          <em>（<%= @minimum_password_length %>文字以上）</em>
+          <% end %><br />
+          <%= f.password_field :password, autocomplete: "new-password" %>
+        </div>
+        <br>
+        <div class="field">
+          <%= f.label :パスワード（確認） %><br />
+          <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+        </div>
+        <br>
+        <div class="actions">
+          <%= f.submit "登録する" %>
+        </div>
+        <% end %>
+        <br>
+        <%= render "users/shared/links" %>
       </div>
-
-      <div class="field">
-        <%= f.label :email %><br />
-        <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-      </div>
-
-      <div class="field">
-        <%= f.label :password %>
-        <% if @minimum_password_length %>
-        <em>(<%= @minimum_password_length %> characters minimum)</em>
-        <% end %><br />
-        <%= f.password_field :password, autocomplete: "new-password" %>
-      </div>
-
-      <div class="field">
-        <%= f.label :password_confirmation %><br />
-        <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-      </div>
-
-      <div class="actions">
-        <%= f.submit "Sign up" %>
-      </div>
-      <% end %>
-
-      <%= render "users/shared/links" %>
-
     </div>
   </body>
 

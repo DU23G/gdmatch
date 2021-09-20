@@ -14,22 +14,21 @@
   <body>
     <br>
     <div align="center">
-      <h2>参加者になる</h2>
-    </div>
-    <br>
-    <div align="center">
-      <h3>参加枠を検索</h3>
-      <%= form_tag({controller:"tweets",action:"index"}, method: :get) do %>
-      <%= text_field_tag :search %>
-      <%= submit_tag '検索する'  %>
+
+      <%= form_tag({controller:"tweets",action:"index"}, method: :get, class: "input-group") do %>
+      <%= text_field_tag :search, params[:search], placeholder: "テーマ検索", class: "form-control" %>
+      <span class="input-group-btn">
+        <%= button_tag "検索", :name => nil, class: "btn-primary" %>
+      </span>
       <% end %>
     </div>
 
     <br>
-    <div align="center">
-      <%= page_entries_info @tweets %>
-    </div>
 
+    <div align="center" class="tweet-head">
+      <p><b>グループディスカッションの練習に参加しよう！</b></p>
+    </div>
+    <br>
     <div class="t-container">
       <% @tweets.each do |t| %>
       <div class="t-item">
@@ -42,7 +41,8 @@
           <tbody>
             <tr>
               <th>開催日時</th>
-              <td><%= t.hosttime.to_s(:datetime_jp) %></td>
+              <td><%= t.hosttime %></td>
+              <%# .to_s(:datetime_jp) %>
             </tr>
             <tr>
               <th>テーマ型</th>
@@ -62,11 +62,13 @@
             </tr>
             <tr>
               <th>募集期限</th>
-              <td><%= t.limittime.to_s(:datetime_jp) %></td>
+              <td><%= t.limittime %></td>
+              <%# .to_s(:datetime_jp) %>
             </tr>
             <tr>
               <th>投稿日時</th>
-              <td><%= t.created_at.to_s(:datetime_jp) %></td>
+              <td><%= t.created_at %></td>
+              <%# .to_s(:datetime_jp) %>
             </tr>
           </tbody>
         </table>
@@ -91,7 +93,7 @@
           <a href="/users/<%= t.user.id %>"><%= t.user.name %></a><br>
         </div>
         <br>
-        <div align="center">
+        <div class="tweet-submit" align="center">
           <%= button_to " 確認 ", tweet_path(t.id) %><br>
           <% if user_signed_in? && current_user.id == t.user_id %>
           <%= link_to "編集", edit_tweet_path(t.id) %>&nbsp;&nbsp;<%= link_to "削除", tweet_path(t.id), method: :delete %>
@@ -104,6 +106,8 @@
 
     <div align="center">
       <%= paginate @tweets %>
+      <br>
+      <%= page_entries_info @tweets %>
     </div>
     <br>
     <br>

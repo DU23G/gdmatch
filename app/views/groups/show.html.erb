@@ -19,31 +19,37 @@
                     </span>
                 </div>
                 <br>
-                <br>
                 <div class="comment-wrapper">
-                    <p>グループチャット</p>
+                    <div>
+                        <p><b>グループチャット</b></p>
+                    </div>
+                    <br>
                     <% @comments.each do |c| %>
                     <div>
-                        <%= c.user.email unless c.user.blank? %>
-                        <br>
-                        <%= c.content %>
+                        <table>
+                            <td><%= c.user.name unless c.user.blank? %></td>
+                            <td>&nbsp;&nbsp;</td>
+                            <td><%= c.content %></td>
+                        </table>
                     </div>
                     <br>
                     <% end %>
 
                     <% if user_signed_in? %>
                     <%= form_with(model: [@group, @comment], local: true) do |f| %>
-                    <%= f.text_area :content %><br>
+                    <%= f.text_area :content, size: "54x2" %><br>
                     <%= button_tag type: "submit" do %>
                     <i class="far fa-comments"></i> メッセージ送信
                     <% end %>
                     <% end %>
                     <% end %>
                 </div>
+                <br>
                 <%= link_to "グループへ作成画面に戻る", groups_path %><br>
             </div>
-
+            <br>
             <%= link_to "グループ画面へ", groups_path(@group.id) %><br>
+            <br>
             <%= link_to "Tweet一覧に戻る", tweets_path %>
 
         </div>

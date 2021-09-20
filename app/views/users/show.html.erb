@@ -10,62 +10,148 @@
     </head>
 
     <body>
-        <div align="center">
-            <br>
-            <h1>ユーザー情報</h1>
-
-            <% if @user.id == current_user.id %>
-            <% else %>
-            <% if current_user.following?(@user) %>
-            <%= button_to "フォローを解除する", user_relationships_path(@user.id), method: :delete %>
-            <% else %>
-            <%= button_to "フォローする", user_relationships_path(@user.id), method: :post %>
-            <% end %>
-            <% end %>
-
-            <p>名前 : <%= @user.name %></p>
-            <p>メールアドレス : <%= @user.email %></p>
-            <p>プロフィール : <%= @user.profile %></p>
-
-            <% if current_user.id == @user.id %>
-            <%= link_to "編集する", edit_user_registration_path %>
-            <% end %><br>
-            <br>
-            <div>
-                <h2>ユーザーの投稿一覧</h2><br>
-                <% @user.tweets.each do |t| %>
-                <p><%= t.thematype %><%= t.thema %></p>
-                開催日時：<%= t.hosttime %><br>
-                グループ人数：<%= t.number %>名<br>
-                レベル：<%= t.level %><br>
-                募集期限：<%= t.limittime %><br>
-                コメント：<%= t.comment %><br>
-                投稿日時：<%= t.created_at %><br>
+        <br>
+        <div class="userpage-all-container">
+            <div class="user-prof-container" align="center">
+                <div class="userpage-head" align="center">
+                    <p><b>ユーザー情報</b></p>
+                </div>
                 <br>
-                <% end %><br>
-
-                <h2>ユーザーがいいねした投稿一覧</h2>
-                <% @user.liked_tweets.each do |t| %>
-                <p><%= t.thematype %><%= t.thema %></p>
-                <%= t.user.name %><br>
-                <% end %><br>
+                <div class="follow-button" align="center">
+                    <% if @user.id == current_user.id %>
+                    <% else %>
+                    <% if current_user.following?(@user) %>
+                    <%= button_to "フォロー解除", user_relationships_path(@user.id), method: :delete %>
+                    <% else %>
+                    <%= button_to "フォロー", user_relationships_path(@user.id), method: :post %>
+                    <% end %>
+                    <% end %>
+                </div>
                 <br>
-                <h2>フォロワーまたはフォローユーザー</h2>
+                <div class="user-info" align="center">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th>名前</th>
+                                <td>&nbsp;&nbsp;</td>
+                                <td><%= @user.name %></td>
+                            </tr>
+                            <tr>
+                                <th>メールアドレス</th>
+                                <td>&nbsp;&nbsp;</td>
+                                <td><%= @user.email %></td>
+                            </tr>
+                            <tr>
+                                <th>プロフィール</th>
+                                <td>&nbsp;&nbsp;</td>
+                                <td><%= @user.profile %></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+                <% if current_user.id == @user.id %>
+                <%= link_to "編集", edit_user_registration_path %>
+                <% else %>
+                <% if @isRoom == true %>
+                <p><a class="dm-button" href="/rooms/<%= @roomId %>"><button>ダイレクトメッセージ</button></a><br>
+                    <% else %>
+                    <%= form_for @room do |f| %>
+                    <%= fields_for @entry do |e| %>
+                    <%= e.hidden_field :user_id, :value=> @user.id %>
+                    <% end %>
+                    <%= f.submit "ダイレクトメッセージ" %>
+                    <% end %>
+                    <% end %>
+                    <% end %>
+                    <br>
+            </div>
+
+            <div class="user-tweets-container" align="center">
+                <div class="userpage-tweets-list" align="center">
+                    <p><b>ユーザーの投稿一覧</b></p>
+                </div>
+                <br>
+                <table class="user-tweets-table">
+                    <tbody>
+                        <tr>
+                            <th>テーマ型</th>
+                            <th>テーマ</th>
+                            <th>開催日時</th>
+                            <th>グループ人数</th>
+                            <th>レベル</th>
+                            <th>詳細ページ</th>
+                        </tr>
+                        <% @user.tweets.each do |t| %>
+                        <tr>
+                            <td><%= t.thematype %></td>
+                            <td><%= t.thema %></td>
+                            <td><%= t.hosttime %></td>
+                            <td><%= t.number %>名</td>
+                            <td><%= t.level %></td>
+                            <td><%= button_to " 詳細 ", tweet_path(t.id) %></td>
+                        </tr>
+                        <% end %>
+                    </tbody>
+                </table>
+                <br>
+            </div>
+            <br>
+
+            <div class="user-likes-container" align="center">
+                <div class="userpage-tweets-likes" align="center">
+                    <p><b>ユーザーがいいねした投稿一覧</b></p>
+                </div>
+                <br>
+                <table class="user-likes-table">
+                    <tbody>
+                        <tr>
+                            <th>テーマ型</th>
+                            <th>テーマ</th>
+                            <th>開催日時</th>
+                            <th>グループ人数</th>
+                            <th>レベル</th>
+                            <th>ユーザー名</th>
+                            <th>詳細ページ</th>
+                        </tr>
+                        <% @user.liked_tweets.each do |t| %>
+                        <tr>
+                            <td><%= t.thematype %></td>
+                            <td><%= t.thema %></td>
+                            <td><%= t.hosttime %></td>
+                            <td><%= t.number %>名</td>
+                            <td><%= t.level %></td>
+                            <td><%= t.user.name %></td>
+                            <td><%= button_to " 詳細 ", tweet_path(t.id) %></td>
+                        </tr>
+                        <% end %>
+                    </tbody>
+                </table>
+                <br>
+            </div>
+
+            <br>
+
+            <div class="user-follow-container" align="center">
+                <div class="userpage-tweets-likes" align="center">
+                    <p><b>フォロワーまたはフォローユーザー</b></p>
+                </div>
+                <br>
                 <% if @users.present? %>
-                <table>
+                <table class="user-follow-table">
                     <thead>
                         <tr>
-                            <th>name</th>
-                            <th></th>
-                            <th></th>
+                            <th>ユーザー名</th>
+                            <th>フォロー</th>
+                            <th>フォロワー</th>
                         </tr>
                     </thead>
                     <tbody>
                         <% @users.each do |user| %>
                         <tr>
                             <td><a href="/users/<%= user.id %>"><%= user.name %></a></td>
-                            <td>フォロー数： <%= user.followings.count %></td>
-                            <td>フォロワー数： <%= user.followers.count %></td>
+                            <td><%= user.followings.count %>名</td>
+                            <td><%= user.followers.count %>名</td>
                         </tr>
                         <% end %>
                     </tbody>
@@ -74,41 +160,33 @@
                 <p>ユーザーはいません</p>
                 <% end %>
                 <br>
-                <br>
-                <br>
+            </div>
 
+            <br>
+
+            <div class="user-take-container" align="center">
                 <% if @user.id == current_user.id %>
-                <h2>あなたの申込一覧</h2><br>
-                <%# <% @user.taked_tweets.each do |tt| %> %>
-                <%# <p><%= tt.thema %></p> %>
-                <%# <% end %> %>
+                <div class="userpage-take-all" align="center">
+                    <p><b>あなたの申込一覧</b></p>
+                </div>
+                <br>
+                <%# <% @user.taked_tweets.each do |tt| %>
+                <%# <p><%= tt.thema %>
+                <%# <% end %>
                 <% else %>
                 <% end %>
-
-                <% if @user.id == current_user.id %>
-                <% else %>
-
-
-                <h2><%= @user.name %>さんとDMしてみよう！</h2>
-                <% if @isRoom == true %>
-                <p><a href="/rooms/<%= @roomId %>"><button>DMへ</button></a><br>
-                    <% else %>
-                    <%= form_for @room do |f| %>
-                    <%= fields_for @entry do |e| %>
-                    <%= e.hidden_field :user_id, :value=> @user.id %>
-                    <% end %>
-                    <%= f.submit "DMを始める" %>
-                    <% end %>
-                    <% end %>
-                    <% end %>
-
-                    <br>
-                    <%= link_to "Tweet一覧に戻る", tweets_path %>
-                    <br>
-                    <br>
-                    <br>
             </div>
+
             <br>
+        </div>
+        <div align="center">
+            <%= link_to "Tweet一覧に戻る", tweets_path %>
+        </div>
+
+        <br>
+        <br>
+        <br>
+        <br>
     </body>
 
 </html>

@@ -6,6 +6,7 @@
     <meta neme="viewport" content="width=device-width, initial-scale=1">
     <title>GD match</title>
     <link rel="stylesheet" href="../../assets/stylesheets/html5reset-1.6.1.css">
+    <link rel="stylesheet" href="../../assets/stylesheets/tweets.scss">
 
   </head>
 
@@ -80,12 +81,12 @@
           <a href="/users/<%= @tweet.user.id %>"><%= @tweet.user.name %></a><br>
         </div>
         <br>
-        <div align="center">
+        <div class="tweet-submit" align="center">
           <%# # 投稿者とログイン中のユーザーが一致しない場合のみボタンを表示させる %>
           <% if @user.id != current_user.id %>
           <%# # 該当の投稿の申込者の中に、ログイン中のユーザーが含まれているか否かで場合分けする %>
           <% if @tweet.taker_ids.include?(current_user.id) %>
-          <%= button_to "キャンセルする", cancel_tweet_path(@tweet.id), data: { confirm: "こちらの投稿の申し込みをキャンセルしますか？" } %>
+          <%= button_to "キャンセル", cancel_tweet_path(@tweet.id), data: { confirm: "こちらの投稿の申し込みをキャンセルしますか？" } %>
           <% else %>
           <%= button_to "申し込む", take_tweet_path(@tweet.id), data: { confirm: "こちらの投稿に申し込みますか？" } %>
           <% end %>
@@ -99,9 +100,6 @@
       </div>
     </div>
 
-    <%# <input type="text" name="name" value="" placeholder="40文字まで" autocomplete="off"> %>
-    <%# <%= f.text_field :keyword, placeholder: "グループ検索", class: "group-search-form-input" %> %>
-    <%# <%= f.text_area :content %><br> %>
 
     <div align="center">
       <br>
@@ -118,16 +116,18 @@
         </h3>
         <% @remarks.each do |c| %>
         <div>
-          <%= c.user.name unless c.user.blank? %>
-          <br>
-          <%= c.content %>
+          <table>
+            <td><%= c.user.name unless c.user.blank? %></td>
+            <td>&nbsp;&nbsp;</td>
+            <td><%= c.content %></td>
+          </table>
         </div>
         <br>
         <% end %>
 
         <% if user_signed_in? %>
         <%= form_with(model: [@tweet, @remark], local: true) do |f| %>
-        <%= f.text_area :content %><br>
+        <%= f.text_area :content, size: "54x2" %><br>
         <%= button_tag type: "submit" do %>
         <i class="far fa-remarks"></i> コメントする
         <% end %>
@@ -136,7 +136,7 @@
       </div>
       <br>
       <br>
-      <%= link_to "Tweet一覧に戻る", tweets_path %>
+      <%= link_to "一覧に戻る", tweets_path %>
       <br>
       <br>
       <br>
