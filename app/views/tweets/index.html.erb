@@ -41,7 +41,7 @@
           <tbody>
             <tr>
               <th>開催日時</th>
-              <td><%= t.hosttime %></td>
+              <td><%= t.hosttime.to_s(:datetime_jp) %></td>
               <%# .to_s(:datetime_jp) %>
             </tr>
             <tr>
@@ -62,12 +62,12 @@
             </tr>
             <tr>
               <th>募集期限</th>
-              <td><%= t.limittime %></td>
+              <td><%= t.limittime.to_s(:datetime_jp) %></td>
               <%# .to_s(:datetime_jp) %>
             </tr>
             <tr>
               <th>投稿日時</th>
-              <td><%= t.created_at %></td>
+              <td><%= t.created_at.to_s(:datetime_jp) %></td>
               <%# .to_s(:datetime_jp) %>
             </tr>
           </tbody>

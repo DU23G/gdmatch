@@ -23,12 +23,13 @@
       <div class="header-list">
         <ul>
           <% if user_signed_in? %>
-          <li>ようこそ<a href="/users/<%= current_user.id %>"><%= current_user.name %></a>さん</li>
+          <li>ようこそ、<a href="/users/<%= current_user.id %>"><%= current_user.name %></a>さん</li>
           <li><%= link_to "新規募集", tweets_new_path %></li>
           <li><%= link_to "申込確認" %></li>
           <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
           <% else %>
           <li>ようこそ、GD matchへ</li>
+          <li><%= link_to "新規募集", tweets_new_path %></li>
           <li><%= link_to "ログイン", new_user_session_path %></li>
           <li><%= link_to "新規登録", new_user_registration_path %></li>
           <% end %>
