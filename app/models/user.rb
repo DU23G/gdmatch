@@ -11,7 +11,7 @@ class User < ApplicationRecord
   has_many :remarks, dependent: :destroy
   
   has_many :tweet_takers, foreign_key: "taker_id", dependent: :destroy
-  # has_many :taked_tweets, through: :tweet_takers, source: :tweet
+  has_many :taked_tweets, through: :tweet_takers, source: :tweet
 
   validates :name, presence: true
   validates :profile, length: { maximum: 200 }

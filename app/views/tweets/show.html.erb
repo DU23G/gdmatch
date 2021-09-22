@@ -25,6 +25,7 @@
             <tr>
               <th>開催日時</th>
               <td><%= @tweet.hosttime.to_s(:datetime_jp) %></td>
+              <%# .to_s(:datetime_jp)  %>
             </tr>
             <tr>
               <th>テーマ型</th>
@@ -49,6 +50,7 @@
             <tr>
               <th>募集期限</th>
               <td><%= @tweet.limittime.to_s(:datetime_jp) %></td>
+              <%# .to_s(:datetime_jp)  %>
             </tr>
             <tr>
               <th>コメント</th>
@@ -57,6 +59,7 @@
             <tr>
               <th>投稿日時</th>
               <td><%= @tweet.created_at.to_s(:datetime_jp) %></td>
+              <%# .to_s(:datetime_jp)  %>
             </tr>
           </tbody>
         </table>
