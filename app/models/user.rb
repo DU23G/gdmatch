@@ -14,6 +14,8 @@ class User < ApplicationRecord
   has_many :taked_tweets, through: :tweet_takers, source: :tweet
 
   validates :name, presence: true
+  validates :sex, presence: true
+  validates :year, presence: true
   validates :profile, length: { maximum: 200 }
 
   def already_liked?(tweet)

@@ -21,9 +21,16 @@
                     <p><b>新規募集</b></p>
                     <br>
 
+                    <%# <%= render 'layouts/error_messages', model: f.object %>
+
                     <div class="field">
                         <%= f.label :"開催日時" %><br>
-                        <%= f.datetime_field :hosttime %>
+                        <%= f.datetime_field :hosttime, autofocus: true %>
+                    </div>
+
+                    <div class="field">
+                        <%= f.label :"所要時間" %><br>
+                        <%= f.select :requiredtime, [["30分", "30分"], ["45分", "45分"], ["1時間", "1時間"], ["1時間15分", "1時間15分"], ["1時間30分", "1時間30分"], ["1時間45分", "1時間45分"], ["2時間", "2時間"]], include_blank: "選択して下さい" %>
                     </div>
 
                     <div class="field">
@@ -38,7 +45,12 @@
 
                     <div class="field">
                         <%= f.label :"グループ人数" %><br>
-                        <%= f.number_field :number, step: "1", min: "3" %>名
+                        <%= f.number_field :number, step: "1", min: "3", max: "24" %>名
+                    </div>
+
+                    <div class="field">
+                        <%= f.label :"職種・企業群" %><br>
+                        <%= f.text_field :subject, size: 60, placeholder: "例：事務系、商社" %>
                     </div>
 
                     <div class="field">
@@ -53,7 +65,7 @@
 
                     <div class="field">
                         <%= f.label :"ミーティング情報" %><br>
-                        <%= f.text_field :meeting, size: 60, placeholder: "ミーティングの接続先情報を入力してください" %>
+                        <%= f.text_field :meeting, size: 60, placeholder: "ID、パスワード または URL" %>
                     </div>
 
                     <div class="field">

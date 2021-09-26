@@ -27,6 +27,16 @@
         </div>
         <br>
         <div class="field">
+          <%= f.label :"性別" %><br>
+          <%= f.select :sex, [["男性", "男性"], ["女性", "女性"], ["未回答", "未回答"]], include_blank: "選択して下さい" %>
+        </div>
+        <br>
+        <div class="field">
+          <%= f.label :"卒業予定年度" %><br>
+          <%= f.select :year, [["22卒", "22卒"], ["23卒", "23卒"], ["24卒", "24卒"], ["25卒", "25卒"], ["その他", "その他"]], include_blank: "選択して下さい" %>
+        </div>
+        <br>
+        <div class="field">
           <%= f.label :メールアドレス %><br />
           <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
         </div>

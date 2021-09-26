@@ -1,5 +1,6 @@
 class TweetsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
+  impressionist :actions=> [:show]
   # before_action :set_tweet
   after_action :set_tweet, except: [:index, :new, :create, :destroy]
 
@@ -26,6 +27,7 @@ class TweetsController < ApplicationController
           redirect_to :action => "index"
         else
           redirect_to :action => "new"
+          
         end
     end
 
@@ -35,6 +37,8 @@ class TweetsController < ApplicationController
       @remark = Remark.new
 
       @user = @tweet.user
+
+      impressionist(@tweet, nil, unique: [:session_hash])
     end
 
     def edit
@@ -87,7 +91,7 @@ class TweetsController < ApplicationController
 
     private
       def tweet_params
-        params.require(:tweet).permit(:thema, :meeting, :comment, :meetingtype, :hosttime, :thematype, :limittime, :level, :number)
+        params.require(:tweet).permit(:thema, :meeting, :comment, :meetingtype, :hosttime, :thematype, :limittime, :level, :number, :requiredtime, :subject)
       end
 
       def set_tweet

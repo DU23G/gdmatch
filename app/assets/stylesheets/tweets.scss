@@ -26,11 +26,12 @@ a:hover {
   justify-content: center;
   align-items: stretch;
   align-content: stretch;
+  flex-wrap: wrap;
 }
 .t-item {
   display: flex;
   flex-direction: column;
-  width: 30%;
+  width: 370px;
   height: auto;
   background-color: white;
   margin: 0.5%;

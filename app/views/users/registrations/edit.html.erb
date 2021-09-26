@@ -21,16 +21,32 @@
         <%= f.label :name %><br />
         <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
       </div>
-
+      <div class="field">
+        <%= f.label :"性別" %><br>
+        <%= f.select :sex, [["男性", "男性"], ["女性", "女性"], ["未回答", "未回答"]], include_blank: "選択して下さい" %>
+      </div>
+      <br>
+      <div class="field">
+        <%= f.label :"卒業予定年度" %><br>
+        <%= f.select :year, [["22卒", "22卒"], ["23卒", "23卒"], ["24卒", "24卒"], ["25卒", "25卒"], ["その他", "その他"]], include_blank: "選択して下さい" %>
+      </div>
+      <br>
+      <div class="field">
+        <%= f.label :"志望職種系統" %><br>
+        <%= f.select :job, [["事務系", "事務系"], ["技術系", "技術系"], ["その他", "その他"]], include_blank: "選択して下さい" %>
+      </div>
+      <br>
       <div class="field">
         <%= f.label :profile %><br />
         <%= f.text_area :profile, autofocus: true %>
       </div>
+      <br>
 
       <div class="field">
         <%= f.label :email %><br />
         <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
       </div>
+      <br>
 
       <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
       <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
@@ -44,16 +60,19 @@
         <em><%= @minimum_password_length %> characters minimum</em>
         <% end %>
       </div>
+      <br>
 
       <div class="field">
         <%= f.label :password_confirmation %><br />
         <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
       </div>
+      <br>
 
       <div class="field">
         <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
         <%= f.password_field :current_password, autocomplete: "current-password" %>
       </div>
+      <br>
 
       <div class="actions">
         <%= f.submit "Update" %>

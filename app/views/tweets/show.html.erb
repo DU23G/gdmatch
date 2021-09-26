@@ -24,8 +24,12 @@
           <tbody>
             <tr>
               <th>開催日時</th>
-              <td><%= @tweet.hosttime.to_s(:datetime_jp) %></td>
+              <td><%= @tweet.hosttime %></td>
               <%# .to_s(:datetime_jp)  %>
+            </tr>
+            <tr>
+              <th>所要時間</th>
+              <td><%= @tweet.requiredtime %></td>
             </tr>
             <tr>
               <th>テーマ型</th>
@@ -34,6 +38,10 @@
             <tr>
               <th>グループ人数</th>
               <td><%= @tweet.number %>名</td>
+            </tr>
+            <tr>
+              <th>職種・企業群</th>
+              <td><%= @tweet.subject %></td>
             </tr>
             <tr>
               <th>レベル</th>
@@ -49,7 +57,7 @@
             </tr>
             <tr>
               <th>募集期限</th>
-              <td><%= @tweet.limittime.to_s(:datetime_jp) %></td>
+              <td><%= @tweet.limittime %></td>
               <%# .to_s(:datetime_jp)  %>
             </tr>
             <tr>
@@ -58,7 +66,7 @@
             </tr>
             <tr>
               <th>投稿日時</th>
-              <td><%= @tweet.created_at.to_s(:datetime_jp) %></td>
+              <td><%= @tweet.created_at %></td>
               <%# .to_s(:datetime_jp)  %>
             </tr>
           </tbody>
@@ -78,6 +86,9 @@
           <% else %>
           <i class="far fa-heart"></i><%= @tweet.likes.count %>
           <% end %><br>
+          <br>
+          PV数：<%=  @tweet.impressionist_count %>
+          <br>
         </div>
         <br>
         <div align="center">
