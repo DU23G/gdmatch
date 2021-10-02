@@ -10,8 +10,20 @@ class TweetsController < ApplicationController
       elsif params[:search] == ''
           @tweets= Tweet.all.page(params[:page]).per(15)
       else
-          @tweets = Tweet.where("thema LIKE ? ",'%' + params[:search] + '%').page(params[:page]).per(15)
+          # @tweets = Tweet.where("thema LIKE ? ",'%' + params[:search] + '%').page(params[:page]).per(15)
+
+          thematype_ids = Tweet.where("thematype = ?", params[:thematype]) .pluck(:id)
+          # プルダウンで選ばれたthematypeと同一のthematypeを持つレコードを取得し、そのidを全て列挙する
+          
+          thema_ids = Tweet.where("thema LIKE ? ",'%' + params[:search] + '%').pluck(:id)
+          # thema_ids = Tweet.where("thema LIKE (?)", "#{params[:search]}").pluck(:id)
+          # キーワードで検索された名前と同じthemaと同じthemaを持つレコードのidを全て列挙する
+    
+          @tweets = Tweet.where("id IN (?) or id IN (?)", thematype_ids, thema_ids).all.page(params[:page]).per(15)
+          # submit_name_idsかproblem_name_idsに当てはまるものをtweetテーブルから探して、
+          # @tweetsに代入。
       end
+
     end
 
     def new

@@ -20,11 +20,28 @@
 
     <div align="center">
 
+      <%# <%= form_tag({controller:"tweets",action:"index"}, method: :get, class: "input-group") do %>
+      <%# <%= text_field_tag :search, params[:search], placeholder: "テーマ検索", class: "form-control" %>
+      <%# <span class="input-group-btn"> %>
+      <%# <%= button_tag "検索", :name => nil, class: "btn-primary" %>
+      <%# </span> %>
+      <%# <% end %>
+
       <%= form_tag({controller:"tweets",action:"index"}, method: :get, class: "input-group") do %>
-      <%= text_field_tag :search, params[:search], placeholder: "テーマ検索", class: "form-control" %>
+      <%= text_field_tag :search , params[:search],placeholder: "テーマ名を検索" %>
+      <%# <% end %>
+      <%# #キーワード検索するタブを作る %>
+
+      <%# <%= form_tag({controller:"tweets",action:"index"}, method: :get) do %>
+      <%= select_tag "thematype", options_for_select([["課題解決型", "課題解決型"], ["自由討論型", "自由討論型"], ["ディベート型", "ディベート型"], ["選択型", "選択型"]], include_blank: "選択して下さい") %>
+      <%# <% end %>
+      <%# #プルダウン検索バー生成 %>
+
       <span class="input-group-btn">
-        <%= button_tag "検索", :name => nil, class: "btn-primary" %>
+        <%= submit_tag '検索する' %>
+        <%# <%= button_tag "検索", :name => nil, class: "btn-primary", type: "submit" %>
       </span>
+
       <% end %>
     </div>
 
@@ -107,6 +124,7 @@
           <% if user_signed_in? && current_user.id == t.user_id %>
           <%= link_to "編集", edit_tweet_path(t.id) %>&nbsp;&nbsp;<%= link_to "削除", tweet_path(t.id), method: :delete %>
           <% end %><br>
+
         </div>
       </div>
       <% end %>
@@ -122,6 +140,7 @@
     <br>
     <br>
     <br>
+
   </body>
 
 </html>

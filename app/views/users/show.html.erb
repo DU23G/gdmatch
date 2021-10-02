@@ -146,13 +146,12 @@
             </div>
 
             <br>
-
             <div class="user-follow-container" align="center">
+                <% if @users.present? %>
                 <div class="userpage-tweets-likes" align="center">
-                    <p><b>フォロワーまたはフォローユーザー</b></p>
+                    <p><b>フォロー一覧（<%= @followings.count %>）</b></p>
                 </div>
                 <br>
-                <% if @users.present? %>
                 <table class="user-follow-table">
                     <thead>
                         <tr>
@@ -162,7 +161,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <% @users.each do |user| %>
+                        <%# <% @users.each do |user| %>
+                        <% @followings.each do |user| %>
                         <tr>
                             <td><a href="/users/<%= user.id %>"><%= user.name %></a></td>
                             <td><%= user.followings.count %>名</td>
@@ -171,8 +171,37 @@
                         <% end %>
                     </tbody>
                 </table>
+                <br>
+                <div class="userpage-tweets-likes" align="center">
+                    <p><b>フォロワー一覧（<%= @followers.count %>）</b></p>
+                </div>
+                <br>
+                <table class="user-follow-table">
+                    <thead>
+                        <tr>
+                            <th>ユーザー名</th>
+                            <th>フォロー</th>
+                            <th>フォロワー</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%# <% @users.each do |user| %>
+                        <% @followers.each do |user| %>
+                        <tr>
+                            <td><a href="/users/<%= user.id %>"><%= user.name %></a></td>
+                            <td><%= user.followings.count %>名</td>
+                            <td><%= user.followers.count %>名</td>
+                        </tr>
+                        <% end %>
+                    </tbody>
+                </table>
+
                 <% else %>
-                <p>ユーザーはいません</p>
+                <div class="userpage-tweets-likes" align="center">
+                    <p><b>フォロワーまたはフォロワー一覧</b></p>
+                </div>
+                <br>
+                <p>情報はありません</p>
                 <% end %>
                 <br>
             </div>

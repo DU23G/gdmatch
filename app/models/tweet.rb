@@ -15,12 +15,13 @@ class Tweet < ApplicationRecord
     # has_many :taked_users, through: :tweet_takers, source: :user
 
     # validates :hosttime, presence: true
-    # validates :thema, presence: true
+    validates :thema, presence: true
     # validates :number, presence: true
     # validates :level, presence: true
     # validates :meeting, presence: true
     # validates :requiredtime, presence: true
     # validates :limittime, presence: true
+    validates :thematype, presence: true
     validates :meeting, length: { maximum: 120 }
     validates :comment, length: { maximum: 120 }
     validates :subject, length: { maximum: 120 }
