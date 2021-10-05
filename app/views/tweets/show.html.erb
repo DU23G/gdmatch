@@ -55,11 +55,11 @@
               <th>接続情報</th>
               <td><%= @tweet.meeting %></td>
             </tr>
-            <tr>
-              <th>募集期限</th>
-              <td><%= @tweet.limittime %></td>
-              <%# .to_s(:datetime_jp)  %>
-            </tr>
+            <%# <tr> %>
+            <%# <th>募集期限</th> %>
+            <%# <td><%= @tweet.limittime %>
+            <%# .to_s(:datetime_jp)  %>
+            <%# </tr> %>
             <tr>
               <th>コメント</th>
               <td><%= @tweet.comment %></td>
@@ -110,7 +110,7 @@
           <br>
           <%= flash[:alert] %>
           <br>
-          <p align="center">期限 <%= @tweet.limittime.to_s(:datetime_jp) %>
+          <p align="center">募集期限 <%= @tweet.limittime.to_s(:datetime_jp) %>
             <br>
             <input type="hidden" id="userYear" value="<%= @tweet.limittime.year %>">
             <input type="hidden" id="userMonth" value="<%= @tweet.limittime.month %>">
@@ -217,9 +217,9 @@
           var dlHour = targetDate.getHours();
           var dlMin = targetDate.getMinutes();
           var dlSec = targetDate.getSeconds();
-          var msg1 = "期限の" + dlYear + "/" + dlMonth + "/" + dlDate + " " + set2fig(dlHour) + ":" + set2fig(dlMin) +
-            ":" +
-            set2fig(dlSec);
+          // var msg1 = "期限の" + dlYear + "/" + dlMonth + "/" + dlDate + " " + set2fig(dlHour) + ":" + set2fig(dlMin) +
+          //   ":" +
+          //   set2fig(dlSec);
 
           // 引き算して日数(ミリ秒)の差を計算
           var diff2Dates = dnumTarget - dnumNow;
@@ -245,10 +245,11 @@
           var msg;
           if (dnumTarget > dnumNow) {
             // まだ期限が来ていない場合
-            msg = "募集終了まで、あと" + msg2;
+            msg = "あと" + msg2;
           } else {
             // 期限が過ぎた場合
-            msg = msg1 + "は、既に" + msg2 + "前に過ぎました。";
+            // msg = msg1 + "は、既に" + msg2 + "前に過ぎました。";
+            msg = "既に" + msg2 + "前に過ぎました。";
           }
 
           // 作成した文字列を表示
