@@ -49,9 +49,8 @@ a:active {
   text-decoration: none;
 }
 
-.icon {
+.header_logo {
   margin-left: 20px;
-
   z-index: 100;
 }
 .header-list {

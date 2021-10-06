@@ -87,7 +87,7 @@ class TweetsController < ApplicationController
         # 投稿の詳細ページにリダイレクト
         redirect_to controller: "groups", action: "index"
       else
-        flash[:alert] = '上限に達しているため申し込みできませんでした。'
+        flash[:alert] = '満席になっているため申し込みできませんでした。'
         redirect_to action: :show
       end
     end

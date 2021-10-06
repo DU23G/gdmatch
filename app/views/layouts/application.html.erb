@@ -17,7 +17,7 @@
     <header>
       <h1>
         <%= link_to tweets_path do %>
-        <div class="icon"><img src="../../images/icon.png"></img></div>
+        <div class="header_logo"><img src="../../images/icon.png"></img></div>
         <% end %>
       </h1>
       <div class="header-list">
@@ -25,7 +25,6 @@
           <% if user_signed_in? %>
           <li>ようこそ、<a href="/users/<%= current_user.id %>"><%= current_user.name %></a>さん</li>
           <li><%= link_to "新規募集", tweets_new_path %></li>
-          <li><%= link_to "申込確認" %></li>
           <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
           <% else %>
           <li>ようこそ、GD matchへ</li>
