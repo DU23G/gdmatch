@@ -50,12 +50,14 @@ a:hover {
 }
 .tweet-table th {
   width: 35%;
+  max-width: 122.5px;
   text-align: left;
   font-weight: 400;
   background: #fafafa;
 }
 .tweet-table td {
   width: 65%;
+  max-width: 227.5px;
   background: #fff;
 }
 .tweet-table th,
@@ -63,6 +65,7 @@ a:hover {
   border-collapse: collapse;
   border: 1px solid #f5f5f5;
   padding: 16px 8px;
+  word-wrap: break-word;
 }
 
 .t-detail-container {
@@ -106,7 +109,8 @@ a:hover {
 
 .post-container {
   padding-bottom: 1%;
-  width: 50%;
+  max-width: 50%;
+  min-width: 350px;
   height: auto;
   background-color: white;
   text-align: center;
@@ -162,6 +166,21 @@ input[type="datetime"] {
 .tweet-submit input[type="submit"] {
   color: white;
   background-color: darkblue;
+  width: 100px;
+  font-size: 18px;
+  padding: 3px 3px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-color: transparent;
+  display: inline-block;
+  border-radius: 5%;
+  transition: 0.2s;
+}
+
+.tweet-submit-1 input[type="submit"] {
+  color: white;
+  background-color: blue;
   width: 100px;
   font-size: 18px;
   padding: 3px 3px;

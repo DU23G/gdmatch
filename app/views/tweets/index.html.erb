@@ -92,8 +92,8 @@
               <%# .to_s(:datetime_jp) %>
             </tr>
             <tr>
-              <th>投稿日時</th>
-              <td><%= t.created_at.to_s(:datetime_jp) %></td>
+              <th>更新日時</th>
+              <td><%= t.updated_at.to_s(:datetime_jp) %></td>
               <%# .to_s(:datetime_jp) %>
             </tr>
           </tbody>
@@ -119,13 +119,20 @@
           <a href="/users/<%= t.user.id %>"><%= t.user.name %></a><br>
         </div>
         <br>
+        <% if Time.now < t.limittime && TweetTaker.where(tweet_id:t.id).count + 1 < t.number %>
+        <div class="tweet-submit-1" align="center">
+          <%= button_to " 受付中 ", tweet_path(t.id) %><br>
+        </div>
+        <% else %>
         <div class="tweet-submit" align="center">
           <%= button_to " 確認 ", tweet_path(t.id) %><br>
-          <% if user_signed_in? && current_user.id == t.user_id %>
-          <%= link_to "編集", edit_tweet_path(t.id) %>&nbsp;&nbsp;<%= link_to "削除", tweet_path(t.id), method: :delete %>
-          <% end %><br>
-
         </div>
+        <% end %>
+        <% if user_signed_in? && current_user.id == t.user_id %>
+        <div align="center">
+          <%= link_to "編集", edit_tweet_path(t.id) %>&nbsp;&nbsp;<%= link_to "削除", tweet_path(t.id), method: :delete %>
+        </div>
+        <% end %><br>
       </div>
       <% end %>
     </div>

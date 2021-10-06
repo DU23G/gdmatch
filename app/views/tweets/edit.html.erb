@@ -72,7 +72,9 @@
         </span>
       </div>
 
+      <% if TweetTaker.where(tweet_id:@tweet.id).count + 1 < @tweet.number %>
       <%= f.submit "編集完了" %>
+      <% end %>
       <% end %>
 
     </div>
