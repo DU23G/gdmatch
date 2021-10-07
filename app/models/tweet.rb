@@ -12,7 +12,9 @@ class Tweet < ApplicationRecord
 
     has_many :tweet_takers, dependent: :destroy
     has_many :takers, through: :tweet_takers, dependent: :destroy
-    # has_many :taked_users, through: :tweet_takers, source: :user
+    has_many :taked_users, through: :tweet_takers, source: :taker
+
+    has_many :grouptalks, dependent: :destroy
 
     # validates :hosttime, presence: true
     validates :thema, presence: true

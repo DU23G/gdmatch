@@ -51,6 +51,9 @@ class TweetsController < ApplicationController
       @user = @tweet.user
 
       impressionist(@tweet, nil, unique: [:session_hash])
+
+      @grouptalks = @tweet.grouptalks
+      @grouptalk = Grouptalk.new
     end
 
     def edit
@@ -85,7 +88,7 @@ class TweetsController < ApplicationController
         # フラッシュメッセージを表示（フラッシュメッセージを表示させない場合は書かなくて大丈夫です）
         flash[:alert] = '申し込みが完了しました。'
         # 投稿の詳細ページにリダイレクト
-        redirect_to controller: "groups", action: "index"
+        redirect_to action: :show, anchor: "groupchat" 
       else
         flash[:alert] = '満席になっているため申し込みできませんでした。'
         redirect_to action: :show

@@ -32,6 +32,7 @@ Rails.application.routes.draw do
     end
     resources :likes, only: [:create, :destroy,]
     resources :remarks, only: [:create]
+    resources :grouptalks, only: [:create]
   end
   
   resources :groups, only: [:index, :new, :create, :show, :edit, :update, :destroy] do

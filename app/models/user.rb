@@ -49,4 +49,5 @@ class User < ApplicationRecord
     followings.include?(user)
   end
   
+  has_many :grouptalks, dependent: :destroy
 end
