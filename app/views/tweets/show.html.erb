@@ -176,8 +176,14 @@
         <% end %>
         <% end %>
       </div>
-
       <br>
+      <br>
+      <%= link_to "一覧に戻る", tweets_path %>
+      <br>
+      <br>
+      <br>
+      <br>
+
       <%# もし申込者または募集者が閲覧していたらコメントできるようにする。 %>
       <% if @tweet.taker_ids.include?(current_user.id) or @user.id == current_user.id %>
       <div class="remark-wrapper">
@@ -213,48 +219,50 @@
         <% end %>
         <% end %>
       </div>
-      <% end %>
-
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
       <br>
       <br>
       <%= link_to "一覧に戻る", tweets_path %>
       <br>
       <br>
+      <br>
+      <br>
+      <% end %>
     </div>
-
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-
 
     <script>
       function set2fig(num) {
