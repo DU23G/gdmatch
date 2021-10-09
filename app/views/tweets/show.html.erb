@@ -99,7 +99,7 @@
 
           <% @time = @tweet.limittime.to_s %>
 
-          <% if Time.now.before? Time.parse(@time) %>
+          <% if Time.zone.now.before? Time.zone.parse(@time) %>
           <%# # 投稿者とログイン中のユーザーが一致しない場合のみボタンを表示させる %>
           <% if @user.id != current_user.id %>
           <%# # 該当の投稿の申込者の中に、ログイン中のユーザーが含まれているか否かで場合分けする %>

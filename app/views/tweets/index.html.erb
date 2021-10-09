@@ -124,7 +124,7 @@
         <% @time = t.limittime.to_s %>
 
         <%# && TweetTaker.where(tweet_id:t.id).count + 1 < t.number  %>
-        <% if Time.now.before? Time.parse(@time) %>
+        <% if Time.zone.now.before? Time.zone.parse(@time) %>
 
         <% if TweetTaker.where(tweet_id:t.id).count + 1 < t.number %>
         <div class="tweet-submit-1" align="center">
