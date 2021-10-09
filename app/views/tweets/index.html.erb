@@ -119,8 +119,12 @@
           <a href="/users/<%= t.user.id %>"><%= t.user.name %></a><br>
         </div>
         <br>
+
+
+        <% @time = t.limittime.to_s %>
+
         <%# && TweetTaker.where(tweet_id:t.id).count + 1 < t.number  %>
-        <% if DateTime.now.before? t.limittime %>
+        <% if DateTime.now.before? DateTime.parse(@time) %>
 
         <% if TweetTaker.where(tweet_id:t.id).count + 1 < t.number %>
         <div class="tweet-submit-1" align="center">
@@ -142,6 +146,9 @@
         </div>
         <% end %>
         <% end %>
+
+
+
 
         <% if user_signed_in? && current_user.id == t.user_id %>
         <div align="center">

@@ -96,8 +96,10 @@
         </div>
         <br>
         <div class="tweet-submit" align="center">
-          <%# Time型の %>
-          <% if DateTime.now.before? @tweet.limittime %>
+
+          <% @time = @tweet.limittime.to_s %>
+
+          <% if DateTime.now.before? DateTime.parse(@time) %>
           <%# # 投稿者とログイン中のユーザーが一致しない場合のみボタンを表示させる %>
           <% if @user.id != current_user.id %>
           <%# # 該当の投稿の申込者の中に、ログイン中のユーザーが含まれているか否かで場合分けする %>
