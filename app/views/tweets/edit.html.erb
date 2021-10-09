@@ -72,8 +72,10 @@
         </span>
       </div>
 
-      <% if TweetTaker.where(tweet_id:@tweet.id).count + 1 < @tweet.number %>
+      <% if Time.current < Time.zone.parse(@tweet.limittime.to_s) && TweetTaker.where(tweet_id:@tweet.id).count + 1 < @tweet.number %>
       <%= f.submit "編集完了" %>
+      <% else %>
+      編集できません。
       <% end %>
       <% end %>
 

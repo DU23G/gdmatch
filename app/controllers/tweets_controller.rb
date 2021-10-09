@@ -57,6 +57,13 @@ class TweetsController < ApplicationController
       @grouptalk = Grouptalk.new
     end
 
+    def groupchat
+      @tweet = Tweet.find(params[:id])
+      @user = @tweet.user
+      @grouptalks = @tweet.grouptalks
+      @grouptalk = Grouptalk.new
+    end 
+
     def edit
       @tweet = Tweet.find(params[:id])
     end
@@ -89,7 +96,8 @@ class TweetsController < ApplicationController
         # フラッシュメッセージを表示（フラッシュメッセージを表示させない場合は書かなくて大丈夫です）
         flash[:alert] = '申し込みが完了しました。'
         # 投稿の詳細ページにリダイレクト
-        redirect_to action: :show, anchor: "groupchat" 
+        # redirect_to action: :show, anchor: "groupchat"
+        redirect_to controller:"tweets",action:"groupchat"
       else
         flash[:alert] = '満席になっているため申し込みできませんでした。'
         redirect_to action: :show

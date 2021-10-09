@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta neme="viewport" content="width=device-width, initial-scale=1">
+        <title>GD match</title>
+        <link rel="stylesheet" href="../../assets/stylesheets/html5reset-1.6.1.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/tweets.scss">
+
+    </head>
+
+    <body>
+        <%# もし申込者または募集者が閲覧していたらコメントできるようにする。 %>
+        <% if @tweet.taker_ids.include?(current_user.id) or @user.id == current_user.id %>
+        <div align="center" class="remark-wrapper">
+            <br>
+            <p class="kanryo"><b>申し込みが完了しました！</b></p>
+            <br>
+            <h3>
+                <p id="groupchat">申込者限定グループチャット</p>
+            </h3>
+            <br>
+            <p>申込者一覧</p>
+            <% @tweet.taked_users.each do |user| %>
+            <li>
+                <%= link_to "/users/#{user.id}" do %>
+                <%= user.name %>
+                <% end %>
+            </li><br>
+            <% end %>
+            <% @grouptalks.each do |c| %>
+            <div>
+                <table>
+                    <td><%= c.user.name unless c.user.blank? %></td>
+                    <td>&nbsp;&nbsp;</td>
+                    <td><%= c.content %></td>
+                </table>
+            </div>
+            <br>
+            <% end %>
+
+            <% if user_signed_in? %>
+            <%= form_with(model: [@tweet, @grouptalk], local: true) do |f| %>
+            <%= f.text_area :content, size: "54x2" %><br>
+            <%= button_tag type: "submit" do %>
+            <i class="far fa-remarks"></i> コメントする
+            <% end %>
+            <% end %>
+            <% end %>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <%= link_to "一覧に戻る", tweets_path %>
+        <br>
+        <br>
+        <br>
+        <br>
+        <% end %>
+        </div>
+    </body>
+
+</html>

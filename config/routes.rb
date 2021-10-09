@@ -34,6 +34,8 @@ Rails.application.routes.draw do
     resources :remarks, only: [:create]
     resources :grouptalks, only: [:create]
   end
+
+  get    'tweets/:id/groupchat'      => 'tweets#groupchat'
   
   resources :groups, only: [:index, :new, :create, :show, :edit, :update, :destroy] do
     resources :comments, only: [:create]
