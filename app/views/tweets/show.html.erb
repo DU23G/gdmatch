@@ -97,9 +97,8 @@
         <br>
         <div class="tweet-submit" align="center">
 
-          <% @time = @tweet.limittime.to_s %>
 
-          <% if Time.zone.now.before? Time.zone.parse(@time) %>
+          <%# <% if Time.now < @tweet.limittime %>
           <%# # 投稿者とログイン中のユーザーが一致しない場合のみボタンを表示させる %>
           <% if @user.id != current_user.id %>
           <%# # 該当の投稿の申込者の中に、ログイン中のユーザーが含まれているか否かで場合分けする %>
@@ -131,9 +130,9 @@
           <% else %>
           <p>満席になっているため申し込みできません。</p>
           <% end %>
-          <% else %>
+          <%# <% else %>
           <p><b>申込受付は終了しました。</b></p>
-          <% end %>
+          <%# <% end %>
         </div>
         <br>
         <br>
