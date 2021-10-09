@@ -87,14 +87,15 @@
           <i class="far fa-heart"></i><%= @tweet.likes.count %>
           <% end %><br>
           <br>
-          PV数：<%=  @tweet.impressionist_count %>
+        </div>
+        <div align="center">
+          <a href="/users/<%= @tweet.user.id %>"><%= @tweet.user.name %></a><br>
+          <br>
+          閲覧数：<%=  @tweet.impressionist_count %>
           <br>
         </div>
         <br>
-        <div align="center">
-          <a href="/users/<%= @tweet.user.id %>"><%= @tweet.user.name %></a><br>
-        </div>
-        <br>
+
         <div class="tweet-submit" align="center">
 
 
@@ -113,7 +114,7 @@
           <%= flash[:alert] %>
           <br>
           <br>
-          <%# <% if TweetTaker.where(tweet_id:@tweet.id).count + 1 < @tweet.number %> %>
+          <% if TweetTaker.where(tweet_id:@tweet.id).count + 1 < @tweet.number %>
           <p align="center">あと<%= @tweet.number - TweetTaker.where(tweet_id:@tweet.id).count - 1 %>名まで参加できます。</p>
           <br>
           <p align="center">募集期限 <%= @tweet.limittime %> まで
@@ -126,9 +127,9 @@
             <input type="hidden" id="userSec" value="<%= @tweet.limittime.sec %>">
           </p>
           <p align="center" id="RealtimeCountdownArea"></p>
-          <%# <% else %> %>
+          <% else %>
           <p>満席になっているため申し込みできません。</p>
-          <%# <% end %> %>
+          <% end %>
           <%# <% else %>
           <p><b>申込受付は終了しました。</b></p>
           <%# <% end %>

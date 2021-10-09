@@ -38,6 +38,7 @@ class TweetsController < ApplicationController
         if tweet.save
           redirect_to :action => "index"
         else
+          flash[:alert] = '入力項目にエラーがあるため投稿できませんでした。'
           redirect_to :action => "new"
           
         end

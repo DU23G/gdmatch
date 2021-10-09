@@ -120,9 +120,7 @@
         </div>
         <br>
 
-
-
-        <% if TweetTaker.where(tweet_id:t.id).count + 1 < t.number %>
+        <% if Time.current < Time.zone.parse(t.limittime.to_s) && TweetTaker.where(tweet_id:t.id).count + 1 < t.number %>
         <div class="tweet-submit-1" align="center">
           <%= button_to " 受付中 ", tweet_path(t.id) %><br>
         </div>

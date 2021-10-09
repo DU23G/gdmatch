@@ -18,7 +18,7 @@ class Tweet < ApplicationRecord
 
     # validates :hosttime, presence: true
     validates :thema, presence: true
-    # validates :number, presence: true
+    validates :number, presence: true
     # validates :level, presence: true
     # validates :meeting, presence: true
     # validates :requiredtime, presence: true
