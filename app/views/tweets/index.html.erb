@@ -119,7 +119,10 @@
           <a href="/users/<%= t.user.id %>"><%= t.user.name %></a><br>
         </div>
         <br>
-        <% if Time.current < t.limittime && TweetTaker.where(tweet_id:t.id).count + 1 < t.number %>
+        <%# && TweetTaker.where(tweet_id:t.id).count + 1 < t.number  %>
+        <% if DateTime.now.before? t.limittime %>
+
+        <% if TweetTaker.where(tweet_id:t.id).count + 1 < t.number %>
         <div class="tweet-submit-1" align="center">
           <%= button_to " 受付中 ", tweet_path(t.id) %><br>
         </div>
@@ -128,6 +131,18 @@
           <%= button_to " 確認 ", tweet_path(t.id) %><br>
         </div>
         <% end %>
+        <% else %>
+        <% if TweetTaker.where(tweet_id:t.id).count + 1 < t.number %>
+        <div class="tweet-submit" align="center">
+          <%= button_to " 確認 ", tweet_path(t.id) %><br>
+        </div>
+        <% else %>
+        <div class="tweet-submit" align="center">
+          <%= button_to " 確認 ", tweet_path(t.id) %><br>
+        </div>
+        <% end %>
+        <% end %>
+
         <% if user_signed_in? && current_user.id == t.user_id %>
         <div align="center">
           <%= link_to "編集", edit_tweet_path(t.id) %>&nbsp;&nbsp;<%= link_to "削除", tweet_path(t.id), method: :delete %>
