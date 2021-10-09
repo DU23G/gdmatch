@@ -121,9 +121,6 @@
         <br>
 
 
-        <%# && TweetTaker.where(tweet_id:t.id).count + 1 < t.number  %>
-
-        <%# <% if Time.now < t.limittime %>
 
         <% if TweetTaker.where(tweet_id:t.id).count + 1 < t.number %>
         <div class="tweet-submit-1" align="center">
@@ -134,12 +131,10 @@
           <%= button_to " 確認 ", tweet_path(t.id) %><br>
         </div>
         <% end %>
-        <%# <% else %>
 
 
 
 
-        <%# <% end %>
 
 
 

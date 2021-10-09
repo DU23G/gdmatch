@@ -98,7 +98,6 @@
         <div class="tweet-submit" align="center">
 
 
-          <%# <% if Time.now < @tweet.limittime %>
           <%# # 投稿者とログイン中のユーザーが一致しない場合のみボタンを表示させる %>
           <% if @user.id != current_user.id %>
           <%# # 該当の投稿の申込者の中に、ログイン中のユーザーが含まれているか否かで場合分けする %>
