@@ -24,7 +24,7 @@
           <tbody>
             <tr>
               <th>開催日時</th>
-              <td><%= @tweet.hosttime %></td>
+              <td><%= @tweet.hosttime.to_s(:datetime_jp) %></td>
               <%# .to_s(:datetime_jp)  %>
             </tr>
             <tr>
@@ -66,7 +66,7 @@
             </tr>
             <tr>
               <th>更新日時</th>
-              <td><%= @tweet.updated_at %></td>
+              <td><%= @tweet.updated_at.to_s(:datetime_jp) %></td>
               <%# .to_s(:datetime_jp)  %>
             </tr>
           </tbody>
@@ -117,7 +117,8 @@
           <% if TweetTaker.where(tweet_id:@tweet.id).count + 1 < @tweet.number %>
           <p align="center">あと<%= @tweet.number - TweetTaker.where(tweet_id:@tweet.id).count - 1 %>名まで参加できます。</p>
           <br>
-          <p align="center">募集期限 <%= @tweet.limittime %> まで
+          <p align="center">募集期限 <%= @tweet.limittime.to_s(:datetime_jp) %> まで
+            <%# .to_s(:datetime_jp) %>
             <br>
             <input type="hidden" id="userYear" value="<%= @tweet.limittime.year %>">
             <input type="hidden" id="userMonth" value="<%= @tweet.limittime.month %>">
