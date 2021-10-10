@@ -117,17 +117,27 @@
           <% if @user.id != current_user.id %>
           <%# # 該当の投稿の申込者の中に、ログイン中のユーザーが含まれているか否かで場合分けする %>
           <% if @tweet.taker_ids.include?(current_user.id) %>
-          <%= button_to "キャンセル", cancel_tweet_path(@tweet.id), data: { confirm: "こちらの投稿の申し込みをキャンセルしますか？" } %>
+          <%= button_to "キャンセル", cancel_tweet_path(@tweet.id), data: { confirm: "こちらの投稿の申し込みをキャンセルしますか？" } %><br>
+          <br>
+          <% if @tweet.taker_ids.include?(current_user.id) or @user.id == current_user.id %>
+          <%= link_to "グループチャットへ", controller:"tweets",action:"groupchat" %>
+          <% end %>
           <% else %>
           <%= button_to "申し込む", take_tweet_path(@tweet.id), data: { confirm: "こちらの投稿に申し込みますか？" } %>
           <% end %>
           <% else %>
           <%= link_to "編集", edit_tweet_path(@tweet.id) %>&nbsp;&nbsp;<%= link_to "削除", tweet_path(@tweet.id), method: :delete %><br>
+          <br>
+          <% if @tweet.taker_ids.include?(current_user.id) or @user.id == current_user.id %>
+          <%= link_to "グループチャットへ", controller:"tweets",action:"groupchat" %>
           <% end %>
+          <% end %>
+
           <br>
           <%= flash[:alert] %>
           <br>
           <br>
+
           <% if TweetTaker.where(tweet_id:@tweet.id).count + 1 < @tweet.number %>
           <p align="center">あと<%= @tweet.number - TweetTaker.where(tweet_id:@tweet.id).count - 1 %>名まで参加できます。</p>
           <br>
@@ -191,7 +201,6 @@
       <br>
       <br>
       <br>
-      <%= link_to "グループチャットへ", controller:"tweets",action:"groupchat" %>
       <br>
       <br>
       <br>
