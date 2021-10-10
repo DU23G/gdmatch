@@ -82,6 +82,7 @@
                     <br>
             </div>
 
+            <br>
             <div class="user-tweets-container" align="center">
                 <div class="userpage-tweets-list" align="center">
                     <p><b>ユーザーの投稿一覧</b></p>
@@ -96,6 +97,7 @@
                             <th>グループ人数</th>
                             <th>レベル</th>
                             <th>詳細ページ</th>
+                            <th>グループチャット</th>
                         </tr>
                         <% @user.tweets.each do |t| %>
                         <tr>
@@ -105,11 +107,13 @@
                             <td><%= t.number %>名</td>
                             <td><%= t.level %></td>
                             <td><%= button_to " 詳細 ", tweet_path(t.id) %></td>
+                            <td><button><a href="/tweets/<%= t.id %>/groupchat">グループチャット</a></button></td>
                         </tr>
                         <% end %>
                     </tbody>
                 </table>
                 <br>
+                <a href="/users/<%= @user.id %>/postedtweets">一覧ページへ</a>
             </div>
             <br>
 
@@ -143,6 +147,7 @@
                     </tbody>
                 </table>
                 <br>
+                <a href="/users/<%= @user.id %>/likedtweets">一覧ページへ</a>
             </div>
 
             <br>
@@ -204,6 +209,7 @@
                 <p>情報はありません</p>
                 <% end %>
                 <br>
+                <a href="/users/<%= @user.id %>/ff">一覧ページへ</a>
             </div>
 
             <br>
@@ -215,8 +221,30 @@
                 </div>
                 <br>
                 <% @user.taked_tweets.each do |tt| %>
-                <p><%= tt.thema %></p>
-                <p>開催日時：<%= tt.hosttime.to_s(:datetime_jp) %><a href="/tweets/<%= tt.id %>">詳細</a></p><br>
+                <table class="user-takedtweets-table">
+                    <tbody>
+                        <tr>
+                            <th>テーマ型</th>
+                            <th>テーマ</th>
+                            <th>開催日時</th>
+                            <th>グループ人数</th>
+                            <th>レベル</th>
+                            <th>詳細ページ</th>
+                            <th>グループチャット</th>
+                        </tr>
+                        <tr>
+                            <td><%= tt.thematype %></td>
+                            <td><%= tt.thema %></td>
+                            <td><%= tt.hosttime.to_s(:datetime_jp)  %></td>
+                            <td><%= tt.number %>名</td>
+                            <td><%= tt.level %></td>
+                            <td><%= button_to " 詳細 ", tweet_path(tt.id) %></td>
+                            <td><button><a href="/tweets/<%= tt.id %>/groupchat">グループチャット</a></button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br>
+                <a href="/users/<%= @user.id %>/takedtweets">一覧ページへ</a>
                 <% end %>
                 <% else %>
                 <% end %>
@@ -225,7 +253,7 @@
             <br>
         </div>
         <div align="center">
-            <%= link_to "Tweet一覧に戻る", tweets_path %>
+            <%= link_to "投稿一覧に戻る", tweets_path %>
         </div>
 
         <br>

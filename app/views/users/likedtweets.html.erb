@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta neme="viewport" content="width=device-width, initial-scale=1">
+        <title>GD match</title>
+        <link rel="stylesheet" href="../../assets/stylesheets/html5reset-1.6.1.css">
+
+    </head>
+
+    <body>
+
+        <div class="user-likes-container" align="center">
+            <div class="userpage-tweets-likes" align="center">
+                <p><b>ユーザーがいいねした投稿一覧</b></p>
+            </div>
+            <br>
+            <table class="user-likes-table">
+                <tbody>
+                    <tr>
+                        <th>テーマ型</th>
+                        <th>テーマ</th>
+                        <th>開催日時</th>
+                        <th>グループ人数</th>
+                        <th>レベル</th>
+                        <th>ユーザー名</th>
+                        <th>詳細ページ</th>
+                    </tr>
+                    <% @user.liked_tweets.each do |t| %>
+                    <tr>
+                        <td><%= t.thematype %></td>
+                        <td><%= t.thema %></td>
+                        <td><%= t.hosttime.to_s(:datetime_jp)  %></td>
+                        <td><%= t.number %>名</td>
+                        <td><%= t.level %></td>
+                        <td><%= t.user.name %></td>
+                        <td><%= button_to " 詳細 ", tweet_path(t.id) %></td>
+                    </tr>
+                    <% end %>
+                </tbody>
+            </table>
+            <br>
+        </div>
+
+    </body>
+
+</html>

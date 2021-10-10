@@ -53,7 +53,16 @@
             </tr>
             <tr>
               <th>接続情報</th>
-              <td><%= @tweet.meeting %></td>
+              <td>
+                <%# もし、募集期限後、かつ（申込者または投稿者）だったら %>
+                <% if Time.current > Time.zone.parse(@tweet.limittime.to_s) && current_user.id == @tweet.user.id %>
+                <%= @tweet.meeting %>
+                <% elsif Time.current > Time.zone.parse(@tweet.limittime.to_s) && @tweet.taker_ids.include?(current_user.id) %>
+                <%= @tweet.meeting %>
+                <% else %>
+                募集期限後に申込者に対して表示されます。
+                <% end %>
+              </td>
             </tr>
             <%# <tr> %>
             <%# <th>募集期限</th> %>
@@ -76,18 +85,23 @@
           <% if user_signed_in? %>
           <% if current_user.already_liked?(@tweet) %>
           <%= link_to tweet_like_path(id: @tweet.id, tweet_id: @tweet.id), method: :delete do %>
-          <i class="fas fa-heart"></i><%= @tweet.likes.count %>
+          <i class="fas fa-heart"></i>
           <% end %>
           <% else %>
           <%= link_to tweet_likes_path(id: @tweet.id, tweet_id: @tweet.id), method: :post do %>
-          <i class="far fa-heart"></i><%= @tweet.likes.count %>
+          <i class="far fa-heart"></i>
           <% end %>
           <% end %>
           <% else %>
-          <i class="far fa-heart"></i><%= @tweet.likes.count %>
+          <i class="far fa-heart"></i>
           <% end %><br>
           <br>
         </div>
+
+        <div align="center">
+          <a href="/tweets/<%= @tweet.id %>/likes"><%= @tweet.likes.count %>件のいいね</a><br>
+        </div>
+        <br>
         <div align="center">
           <a href="/users/<%= @tweet.user.id %>"><%= @tweet.user.name %></a><br>
           <br>
@@ -144,15 +158,6 @@
     <div align="center">
       <br>
       <%# <%= link_to "グループ作成へ", groups_path %>
-
-      <h2>この投稿にいいねしたユーザー</h2>
-      <% @tweet.liked_users.each do |user| %>
-      <li>
-        <%= link_to "/users/#{user.id}" do %>
-        <%= user.name %>
-        <% end %>
-      </li><br>
-      <% end %>
 
       <%# 公開チャットコメント %>
       <div class="remark-wrapper">

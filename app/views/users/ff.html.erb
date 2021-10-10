@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta neme="viewport" content="width=device-width, initial-scale=1">
+        <title>GD match</title>
+        <link rel="stylesheet" href="../../assets/stylesheets/html5reset-1.6.1.css">
+
+    </head>
+
+    <body>
+
+        <br>
+        <div class="user-follow-container" align="center">
+            <% if @users.present? %>
+            <div class="userpage-tweets-likes" align="center">
+                <p><b>フォロー一覧（<%= @followings.count %>）</b></p>
+            </div>
+            <br>
+            <table class="user-follow-table">
+                <thead>
+                    <tr>
+                        <th>a</th>
+                        <th>ユーザー名</th>
+                        <th>フォロー</th>
+                        <th>フォロワー</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%# <% @users.each do |user| %>
+                    <% @followings.each do |user| %>
+                    <tr>
+                        <td>
+                            <div class="follow-button" align="center">
+                                <% if @user.id == current_user.id %>
+                                <% else %>
+                                <% if current_user.following?(user) %>
+                                <%= button_to "フォロー解除", user_relationships_path(user.id), method: :delete %>
+                                <% else %>
+                                <%= button_to "フォロー", user_relationships_path(user.id), method: :post %>
+                                <% end %>
+                                <% end %>
+                            </div>
+                        </td>
+                        <td><a href="/users/<%= user.id %>"><%= user.name %></a></td>
+                        <td><%= user.followings.count %>名</td>
+                        <td><%= user.followers.count %>名</td>
+                    </tr>
+                    <% end %>
+                </tbody>
+            </table>
+            <br>
+            <div class="userpage-tweets-likes" align="center">
+                <p><b>フォロワー一覧（<%= @followers.count %>）</b></p>
+            </div>
+            <br>
+            <table class="user-follow-table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>ユーザー名</th>
+                        <th>フォロー</th>
+                        <th>フォロワー</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%# <% @users.each do |user| %>
+                    <% @followers.each do |user| %>
+                    <tr>
+                        <td>
+                            <div class="follow-button" align="center">
+                                <% if @user.id == current_user.id %>
+                                <% else %>
+                                <% if current_user.following?(user) %>
+                                <%= button_to "フォロー解除", user_relationships_path(user.id), method: :delete %>
+                                <% else %>
+                                <%= button_to "フォロー", user_relationships_path(user.id), method: :post %>
+                                <% end %>
+                                <% end %>
+                            </div>
+                        </td>
+                        <td><a href="/users/<%= user.id %>"><%= user.name %></a></td>
+                        <td><%= user.followings.count %>名</td>
+                        <td><%= user.followers.count %>名</td>
+                    </tr>
+                    <% end %>
+                </tbody>
+            </table>
+
+            <% else %>
+            <div class="userpage-tweets-likes" align="center">
+                <p><b>フォロワーまたはフォロワー一覧</b></p>
+            </div>
+            <br>
+            <p>情報はありません</p>
+            <% end %>
+            <br>
+        </div>
+
+        <br>
+
+    </body>
+
+</html>

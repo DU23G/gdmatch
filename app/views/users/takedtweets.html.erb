@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta neme="viewport" content="width=device-width, initial-scale=1">
+        <title>GD match</title>
+        <link rel="stylesheet" href="../../assets/stylesheets/html5reset-1.6.1.css">
+
+    </head>
+
+    <body>
+        <% if @user.id == current_user.id %>
+        <div class="user-take-container" align="center">
+            <div class="userpage-take-all" align="center">
+                <p><b>あなたの申込一覧</b></p>
+            </div>
+            <br>
+            <% @user.taked_tweets.each do |tt| %>
+            <table class="user-takedtweets-table">
+                <tbody>
+                    <tr>
+                        <th>テーマ型</th>
+                        <th>テーマ</th>
+                        <th>開催日時</th>
+                        <th>グループ人数</th>
+                        <th>レベル</th>
+                        <th>詳細ページ</th>
+                        <th>グループチャット</th>
+                    </tr>
+                    <tr>
+                        <td><%= tt.thematype %></td>
+                        <td><%= tt.thema %></td>
+                        <td><%= tt.hosttime.to_s(:datetime_jp)  %></td>
+                        <td><%= tt.number %>名</td>
+                        <td><%= tt.level %></td>
+                        <td><%= button_to " 詳細 ", tweet_path(tt.id) %></td>
+                        <td><button><a href="/tweets/<%= tt.id %>/groupchat">グループチャット</a></button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <% end %>
+            <% else %>
+            <% end %>
+        </div>
+    </body>
+
+</html>

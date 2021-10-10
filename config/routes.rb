@@ -4,11 +4,16 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
   # resources :users, :only => [:index, :show]
-  resources :users, only: [:index, :show, :edit, :update] do
+  resources :users, only: [:index, :show, :edit, :update, :ff] do
       resource :relationships, only: [:create, :destroy]
         get 'followings' => 'relationships#followings', as: 'followings'
         get 'followers' => 'relationships#followers', as: 'followers'
-      end
+  end
+
+  get 'users/:id/ff' => 'users#ff'
+  get 'users/:id/likedtweets' => 'users#likedtweets'
+  get 'users/:id/postedtweets' => 'users#postedtweets'
+  get 'users/:id/takedtweets' => 'users#takedtweets'
 
   # root "users#index"
 
@@ -36,6 +41,7 @@ Rails.application.routes.draw do
   end
 
   get    'tweets/:id/groupchat'      => 'tweets#groupchat'
+  get    'tweets/:id/likes'      => 'tweets#likes'
   
   resources :groups, only: [:index, :new, :create, :show, :edit, :update, :destroy] do
     resources :comments, only: [:create]
